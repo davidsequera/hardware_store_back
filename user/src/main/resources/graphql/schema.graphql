@@ -1,0 +1,95 @@
+type Mutation{
+    #User
+    createUser(input: singUpInput): User
+    deleteUser(id: ID!): User
+    modifyUser(type: userEditInput): User
+}
+
+
+type Query{
+#   User
+    getUsers: [User]
+#   Tool
+    getTools:[Tool]
+}
+
+# Entities Schema
+
+type Tool{
+    id: ID!
+    name: String
+    description: String
+    price: Float
+    amount: Int
+
+}
+
+type User{
+    id: ID!
+    name: String!
+    las_name: String!
+    email: String!
+    password: String!
+    birthday: Int
+    city_birth: ID!
+}
+
+type City{
+    id: ID!
+    name: String!
+}
+type Brand{
+    id: ID!
+    name: String!
+}
+
+# Relational Schema
+
+type tool_city{
+    id: ID!
+    tool_id: ID!
+    city_id: ID!
+}
+
+
+# Auth Schema
+
+type token{
+    auth: Boolean!
+    body: String
+}
+
+# Inputs Schema
+
+#input signInInput{
+#    email: String!
+#    password: String!
+#}
+#input signUpInput {
+#    name: String!
+#    email: String!
+#    password:String!
+#}
+
+input  singUpInput{
+    name: String!
+    las_name: String!
+    email: String!
+    password: String!
+    birthday: Int
+    city_birth: ID!
+}
+
+input userEditInput {
+    name: String
+    las_name: String
+    email: String
+    password: String
+    birthday: Int
+    city_birth: ID
+}
+#input lessonViewedInput{
+#    user_id: String!
+#    lesson_id: String!
+#    viewed: Boolean!
+#}

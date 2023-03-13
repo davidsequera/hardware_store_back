@@ -1,0 +1,181 @@
+[
+    {
+      "name": "Hammer",
+      "description": "A tool used to drive nails into wood or other materials",
+      "brand": "1",
+      "price": 12.99,
+      "amount": 50
+    },
+    {
+      "name": "Screwdriver Set",
+      "description": "A set of tools used to drive screws into wood or other materials",
+      "brand": "2",
+      "price": 29.99,
+      "amount": 25
+    },
+    {
+      "name": "Circular Saw",
+      "description": "A power tool used to make straight cuts through wood or other materials",
+      "brand": "3",
+      "price": 129.99,
+      "amount": 10
+    },
+    {
+      "name": "Drill",
+      "description": "A power tool used to make holes in wood or other materials",
+      "brand": "4",
+      "price": 89.99,
+      "amount": 20
+    },
+    {
+      "name": "Wrench Set",
+      "description": "A set of tools used to tighten or loosen nuts and bolts",
+      "brand": "5",
+      "price": 39.99,
+      "amount": 15
+    },
+    {
+      "name": "Pliers",
+      "description": "A hand tool used to grip and manipulate objects",
+      "brand": "6",
+      "price": 9.99,
+      "amount": 30
+    },
+    {
+      "name": "Chainsaw",
+      "description": "A power tool used to cut down trees or other large objects",
+      "brand": "7",
+      "price": 249.99,
+      "amount": 5
+    },
+    {
+      "name": "Sledgehammer",
+      "description": "A large, heavy hammer used to break up rocks or other hard materials",
+      "brand": "8",
+      "price": 49.99,
+      "amount": 10
+    },
+    {
+      "name": "Angle Grinder",
+      "description": "A power tool used to grind or cut metal or other hard materials",
+      "brand": "9",
+      "price": 79.99,
+      "amount": 15
+    },
+    {
+      "name": "Tape Measure",
+      "description": "A tool used to measure distances",
+      "brand": "10",
+      "price": 4.99,
+      "amount": 50
+    },
+    {
+      "name": "Air Compressor",
+      "description": "A device used to,compress air and power pneumatic tools",
+      "brand": "11",
+      "price": 199.99,
+      "amount": 8
+    },
+    {
+      "name": "Hand Saw",
+      "description": "A manual tool used to cut wood or other materials",
+      "brand": "12",
+      "price": 14.99,
+      "amount": 40
+    },
+    {
+      "name": "Paint Sprayer",
+      "description": "A device used to apply paint to surfaces",
+      "brand": "13",
+      "price": 129.99,
+      "amount": 10
+    },
+    {
+      "name": "Nail Gun",
+      "description": "A power tool used to drive nails into wood or other materials quickly and efficiently",
+      "brand": "14",
+      "price": 199.99,
+      "amount": 7
+    },
+    {
+      "name": "Angle Drill",
+      "description": "A power tool used to drill holes at an angle",
+      "brand": "15",
+      "price": 119.99,
+      "amount": 12
+    },
+    {
+      "name": "Cordless Screwdriver",
+      "description": "A battery-powered tool used to drive screws into wood or other materials",
+      "brand": "2",
+      "price": 49.99,
+      "amount": 20
+    },
+    {
+      "name": "Belt Sander",
+      "description": "A power tool used to sand wood or other materials quickly and efficiently",
+      "brand": "16",
+      "price": 89.99,
+      "amount": 15
+    },
+    {
+      "name": "Jigsaw",
+      "description": "A power tool used to make curved or intricate cuts in wood or other materials",
+      "brand": "17",
+      "price": 99.99,
+      "amount": 10
+    },
+    {
+      "name": "Miter Saw",
+      "description": "A power tool used to make precise angled cuts in wood or other materials",
+      "brand": "3",
+      "price": 179.99,
+      "amount": 7
+    },
+    {
+      "name": "Socket Set",
+      "description": "A set of tools used to tighten or loosen nuts and bolts with a socket wrench",
+      "brand": "18",
+      "price": 29.99,
+      "amount": 25
+    },
+    {
+      "name": "Level",
+      "description": "A tool used to ensure that surfaces are level or plumb",
+      "brand": "10",
+      "price": 9.99,
+      "amount": 30
+    },
+    {
+      "name": "Rotary Tool",
+      "description": "A handheld power tool with a variety of interchangeable bits for sanding, grinding, and cutting",
+      "brand": "19",
+      "price": 49.99,
+      "amount": 15
+    },
+    {
+      "name": "Chainsaw",
+      "description": "A power tool used to cut down trees and branches",
+      "brand": "20",
+      "price": 299.99,
+      "amount": 5
+    },
+    {
+      "name": "Carpenter's Square",
+      "description": "A tool used for measuring and marking right angles in woodworking",
+      "brand": "21",
+      "price": 19.99,
+      "amount": 25
+    },
+    {
+      "name": "Claw Hammer",
+      "description": "A manual tool used for driving nails and removing them with its claw end",
+      "brand": "10",
+      "price": 12.99,
+      "amount": 30
+    }
+  ]
+  
+  
+  
+  

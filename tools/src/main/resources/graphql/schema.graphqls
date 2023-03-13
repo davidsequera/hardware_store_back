@@ -1,0 +1,97 @@
+
+type Query{
+    getAllTools:[Tool]
+    getTools(input: toolPageInput): ToolPage
+    getToolById(id: ID!): Tool
+    getBrands: [Brand]
+    getBrandById(id: ID!): Brand
+    getCities: [City]
+    getCityById(id: ID!): City
+}
+
+type Mutation{
+    createTool(input: createToolInput): Tool
+    updateTool(input: updateToolInput): Tool
+    deleteTool(id: ID!): Tool
+    createBrand(input: createBrandInput): Brand
+    updateBrand(input: updateBrandInput): Brand
+    deleteBrand(id: ID!): Brand
+    createCity(input: createCityInput): City
+    updateCity(input: updateCityInput): City
+    deleteCity(id: ID!): City
+}
+# Entities Schema
+
+type Tool{
+    id: ID!
+    name: String!
+    description: String!
+    price: Float!
+    amount: Int
+    brand: Brand
+    cities: [City]
+}
+
+type City{
+    id: ID!
+    name: String!
+}
+type Brand{
+    id: ID!
+    name: String!
+    tools: [Tool]
+}
+
+# Inputs Schema
+
+input  toolPageInput{
+    start: Int!
+    amount: Int!
+}
+
+input createToolInput{
+    name: String!
+    description: String!
+    price: Float!
+    amount: Int
+    brandId: ID!
+    cities: [ID]
+}
+
+input updateToolInput{
+    id: ID!
+    name: String
+    description: String
+    price: Float
+    amount: Int
+    brandId: ID
+    cities: [ID]
+}
+
+input createBrandInput{
+    name: String!
+    tools: [ID]
+}
+input updateBrandInput{
+    id: ID!
+    name: String
+    tools: [ID]
+}
+
+
+input createCityInput{
+    name: String!
+}
+
+input updateCityInput{
+    id: ID!
+    name: String!
+}
+
+
+# Pagination Schema
+type ToolPage{
+    length: Int
+    tools: [Tool]
+}
+

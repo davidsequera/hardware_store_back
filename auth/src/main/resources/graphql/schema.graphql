@@ -1,0 +1,21 @@
+type Mutation{
+    accessToken(token: String!): token!
+    idToken(token: String!): token!
+    authenticate(credentials: credentials!): token!
+}
+
+enum tokenType{
+    ACCESS
+    REFRESH
+    ID
+}
+
+type token{
+    type: tokenType!
+    token: String!
+}
+
+input credentials{
+    email: String!
+    password: String!
+}
