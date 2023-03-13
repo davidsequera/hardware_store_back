@@ -1,7 +1,10 @@
 package com.hardware.auth.domain
 
 import org.springframework.security.crypto.bcrypt.BCrypt
- class AuthService {
+import org.springframework.stereotype.Service
+
+@Service
+class AuthService {
     val COST = 12
     fun hashPassword(password: String?): String {
         return BCrypt.hashpw(password, BCrypt.gensalt(COST))

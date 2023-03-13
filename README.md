@@ -20,3 +20,4 @@ spring.data.mongodb.database=<databasename>
 spring.graphql.graphiql.enabled=true
 spring.graphql.graphiql.path=/graphiql
 ```
+

@@ -1,3 +1,7 @@
+type Query{
+    getAccessToken: token!
+}
+
 type Mutation{
     accessToken(token: String!): token!
     idToken(token: String!): token!

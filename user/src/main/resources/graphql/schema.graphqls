@@ -2,15 +2,15 @@ type Mutation{
     #User
     createUser(input: singUpInput): User
     deleteUser(id: ID!): User
-    modifyUser(type: userEditInput): User
+    updateUser(type: userEditInput): User
 }
 
 
 type Query{
 #   User
     getUsers: [User]
-#   Tool
-    getTools:[Tool]
+    getUser(id: ID!): User
+    getUserByEmail(email: String!): User
 }
 
 # Entities Schema

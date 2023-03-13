@@ -1,10 +1,10 @@
 {
-  "name": "Auth GraphQL Schema",
+  "name": "Users GraphQL Schema",
   "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "http://localhost:8090/graphql",
+        "url": "http://localhost:8085/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },
