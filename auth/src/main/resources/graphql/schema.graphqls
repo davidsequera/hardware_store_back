@@ -1,25 +1,25 @@
 type Query{
-    getAccessToken: token!
+    accessToken(tokenString: String!): Token!
 }
 
 type Mutation{
-    accessToken(token: String!): token!
-    idToken(token: String!): token!
-    authenticate(credentials: credentials!): token!
+    authenticate(credential: Credential!):  Token!
+    createAccount(credential: Credential!): Token!
 }
 
-enum tokenType{
+enum TokenType{
     ACCESS
     REFRESH
     ID
 }
 
-type token{
-    type: tokenType!
-    token: String!
+type Token{
+    type: TokenType!
+    value: String!
 }
 
-input credentials{
+input Credential{
+    id: String
     email: String!
     password: String!
 }

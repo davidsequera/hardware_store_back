@@ -21,3 +21,11 @@ spring.graphql.graphiql.enabled=true
 spring.graphql.graphiql.path=/graphiql
 ```
 
+Additionally, you need to add to auth microservice a file called "config.properties" in the same path as the "application.properties" file with the following content:
+
+```properties
+#config.properties
+JWT_SECRET="your_jwt_secret"
+JWT_SECRET_REFRESH = "a_different_jwt_secret"
+```
+

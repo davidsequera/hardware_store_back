@@ -4,8 +4,9 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("credentials")
-data class Credentials(
+data class Credential(
     @Id
-    val username: String,
-    val password: String
+    val id: String?,
+    val email: String,
+    var password: String
 )
