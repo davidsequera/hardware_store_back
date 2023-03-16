@@ -3,33 +3,15 @@ package com.hardware.user.domain.entities;
 // Para escribir un salto de linea en un comentario, usa <BR>
 // Para cambiar el color de un comentario, usa <font color="red">texto</font>
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-/**
- * Esta clase representa la entidad de usuario. Aqui se definen los atributos de la entidad.
- * @functions
- * Constructor de la clase user:<BR>
- * <strong><font color="red">public</font></strong> <strong><font color="white">user</font></strong><font color="gray">(</font><strong>
- * <font color="white">String</font> </strong><font color="#00FF00">id</font><font color="gray">,</font> <strong>
- *     <font color="white">String</font> </strong><font color="#00FF00">name</font><font color="gray">,</font> <strong>
- *         <font color="white">String</font> </strong><font color="#00FF00">lastName</font><font color="gray">,</font> <strong>
- *             <font color="white">String</font> </strong><font color="#00FF00">email</font><font color="gray">,</font> <strong>
- *                 <font color="white">String</font> </strong><font color="#00FF00">password</font><font color="gray">,</font> <strong>
- *                     <font color="white">String</font> </strong><font color="#00FF00">birthday</font><font color="gray">,</font> <strong>
- *                         <font color="white">String</font> </strong><font color="#00FF00">city_birth</font><font color="gray">)</font>
- *                         <BR>
- * Constructor de la clase user, sin parametros:<BR>
- *
- *
- * @author Sebastian Vergara, David Sequera
- * @version 1.0
- * @since 1.0
- *
- *
- *
- *
- */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "user")
 public class User {
     @Id
@@ -46,9 +28,7 @@ public class User {
      * Constructor de la clase user.
      * @param id Identificador del usuario
      * @param name Nombre del usuario
-     * @param lastName Apellido del usuario
-     * @param email Correo electronico del usuario
-     * @param password Contraseña del usuario (Temporal)
+     * @param last_name Apellido del usuario
      * @param birthday Cumpleaños del usuario.
      * @param city_birth Ciudad de nacimiento del usuario.
      */

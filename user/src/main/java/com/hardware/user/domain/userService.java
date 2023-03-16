@@ -1,7 +1,7 @@
 package com.hardware.user.domain;
 
 import com.hardware.user.domain.entities.User;
-import com.hardware.user.persistence.userRepository;
+import com.hardware.user.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -13,16 +13,16 @@ import reactor.core.publisher.Mono;
  * @version 1.0
  * @since 1.0
  * @see User
- * @see userRepository
+ * @see UserRepository
  */
 @Service
 public class userService {
     @Autowired
-    private userRepository userRepository;
+    private UserRepository userRepository;
 
     /**
      * Retorna todos los usuarios.
-     * @return Flux<user>
+     * @return Flux<User>
      */
     public Flux<User> findAllUsers() {
         System.out.println("findAllUsers");
@@ -31,11 +31,11 @@ public class userService {
 
     /**
      * Retorna un usuario por su id.
-     * @param user_id Identificador del usuario
+     * @param id Identificador del usuario
      * @return Flux<user>
      */
-    public Mono<User> findById(String user_id) {
-        return userRepository.findById(user_id);
+    public Mono<User> findById(String id) {
+        return userRepository.findById(id);
     }
 
     /**
@@ -49,21 +49,29 @@ public class userService {
 
     /**
      * Actualiza un usuario por su id.
-     * @param id Identificador del usuario
      * @param user Usuario a actualizar
      * @return Mono<user> Usuario actualizado
      */
-    public Mono<User> updateUser(String id, User user) {
-        return userRepository.findById(id)
+    public Mono<User> updateUser(User user) {
+        return userRepository.findById(user.getId())
                 .flatMap(existingUser -> {
-                    existingUser.setName(user.getName());
-                    existingUser.setLastName(user.getLastName());
-                    existingUser.setEmail(user.getEmail());
-                    existingUser.setBirthday(user.getBirthday());
-                    existingUser.setCity_birth(user.getCity_birth());
+                    if (user.getName() != null && !user.getName().isEmpty()) {
+                        existingUser.setName(user.getName());
+                    }
+                    if (user.getLast_name() != null && !user.getLast_name().isEmpty()) {
+                        existingUser.setLast_name(user.getLast_name());
+                    }
+                    if (user.getBirthday() != null && !user.getBirthday().isEmpty()) {
+                        existingUser.setBirthday(user.getBirthday());
+                    }
+                    if (user.getCity_birth() != null && !user.getCity_birth().isEmpty()) {
+                        existingUser.setCity_birth(user.getCity_birth());
+                    }
                     return userRepository.save(existingUser);
                 });
     }
+
+
 
     /**
      * Basado en el id del usuario, borra el usuario. El borrado es un Soft Delete, es decir, el usuario no se elimina de la base de datos, sino que se cambia el estado de su atributo active a false.

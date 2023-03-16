@@ -11,8 +11,6 @@ import com.hardware.tools.persistence.ToolRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.security.PublicKey;
-import java.util.Arrays;
 
 @Service
 public class ToolService {
@@ -42,7 +40,27 @@ public class ToolService {
     }
 
     public Mono<Tool> updateTool(final Tool tool){
-        return toolRepository.findById(tool.getId()).map(t -> tool).flatMap(toolRepository::save);
+        // TODO: Implement the logic for updating the tool
+        return toolRepository.findById(tool.getId())
+                .flatMap(existingUser -> {
+                    if (tool.getName() != null && !tool.getName().isEmpty()) {
+                        existingUser.setName(tool.getName());
+                    }
+                    if (tool.getDescription() != null && !tool.getDescription().isEmpty()) {
+                        existingUser.setDescription(tool.getDescription());
+                    }
+                    if (tool.getBrandId() != null ) {
+                        existingUser.setBrandId(tool.getBrandId().toString());
+                    }
+                    if (tool.getPrice() != 0 ) {
+                        existingUser.setBrandId(tool.getBrandId().toString());
+                    }
+                    if(tool.getCities() != null){
+                        existingUser.setCities(tool.getCities());
+                    }
+                    // Amount
+                    return toolRepository.save(existingUser);
+                });
     }
 
     public Mono<Tool> deleteTool(final String id){

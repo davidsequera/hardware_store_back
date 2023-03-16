@@ -9,19 +9,20 @@ import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.stereotype.Controller
-import reactor.core.publisher.Mono
 
 
 @Controller
 class AuthController(@Autowired val authService: AuthService) {
 
     @MutationMapping
-    fun authenticate(@Argument credential: Mono<Credential>): Token {
+    fun authenticate(@Argument credential: Credential): Token {
+        println("CONTROLLER $credential")
         return authService.authenticate(credential).second
     }
 
     @MutationMapping
     fun createAccount(@Argument credential: Credential): Token? {
+
         return authService.create(credential)
     }
     @QueryMapping

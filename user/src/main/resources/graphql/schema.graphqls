@@ -1,42 +1,37 @@
 
 type Query {
-    findAllUsers: [user]
-    findById(id: ID!): user
-    findByEmail(email: String!): user
+    getUsers: [User]
+    getAllUsers: [User]
+    getById(id: ID!): User
+    getByEmail(email: String!): User
 }
 
-type user {
+type User {
     id: String
     name: String
-    lastName: String
-    email: String
-    password: String
+    last_name: String
     birthday: String
     city_birth: String
 }
 
 type Mutation{
-    createUser(input: createUserInput): user
-    updateUser(input: updateUserInput): user
-    deleteUser(id: ID!): user
+    createUser(input: createUserInput): User
+    updateUser(input: updateUserInput): User
+    deleteUser(id: ID!): User
 }
 
 # Inputs Schema
 
 input  userInput{
     name: String!
-    lastName: String!
-    email: String!
-    password: String!
+    last_name: String!
     birthday: String!
     city_birth: String!
 }
 
 input createUserInput{
     name: String!
-    lastName: String!
-    email: String!
-    password: String!
+    last_name: String!
     birthday: String!
     city_birth: String!
 }
@@ -44,9 +39,7 @@ input createUserInput{
 input updateUserInput{
     id: ID!
     name: String
-    lastName: String
-    email: String
-    password: String
+    last_name: String
     birthday: String
     city_birth: String
 }

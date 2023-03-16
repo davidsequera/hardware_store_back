@@ -23,10 +23,10 @@ def addJsonToDB( path: str, collection, isTool: bool = False):
     return collection.bulk_write(requesting)
 
 
-addJsonToDB("db/cities.json", db.cities)
-addJsonToDB("db/brands.json", db.brands)
+addJsonToDB("../db/cities.json", db.cities)
+addJsonToDB("../db/brands.json", db.brands)
 city_ids = [(city["_id"]) for city in db.cities.find({}, {"_id": 1})]
 brand_ids = [(city["_id"]) for city in db.brands.find({}, {"_id": 1})]
-addJsonToDB("db/tools.json", db.tools, True)
+addJsonToDB("../db/tools.json", db.tools, True)
 
 client.close()

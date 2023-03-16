@@ -46,12 +46,13 @@ class TokenComponent {
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
         }
-        val jwtParser: Lazy<JwtParser> = lazy {
-            Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray())).build()
-        }
-
         try {
-           jwtParser.value.parseClaimsJws(token.value).body
+            val claims = Jwts
+                .parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
+                .build()
+                .parseClaimsJws(token.value)
+                .body
             verified = true
         } catch (e: Exception) {
             verified = false
@@ -60,7 +61,7 @@ class TokenComponent {
     }
 
 
-    fun expire(token: Token): Boolean {
+    fun current(token: Token): Boolean {
         val secretKey = when(token.type){
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
@@ -72,7 +73,9 @@ class TokenComponent {
             .build()
             .parseClaimsJws(token.value)
             .body
-            return claims.expiration.before(Date())
+
+         val expiration = claims.expiration
+            return !claims.expiration.before(Date())
         }catch (e: Exception){
             return false
         }

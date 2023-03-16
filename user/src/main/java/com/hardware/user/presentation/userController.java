@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -37,64 +36,54 @@ public class userController {
     public Flux<User> findAllUsers() {
         return userService.findAllUsers();
     }
-    @QueryMapping
+
     /**
      * Retorna un usuario por su id.
      * @param user_id Identificador del usuario
      * @return Mono<user>
      */
-    public Mono<User> findById(@Argument String user_id) {
-        return userService.findById(user_id);
+    @QueryMapping //
+    public Mono<User> getById(@Argument String id) {
+        return userService.findById(id);
     }
-    @QueryMapping
     /**
      * Retorna un usuario por su correo electronico.
      *
      * @param email Correo electronico del usuario
      * @return Mono<user>
      */
-    public Mono<User> findByEmail(@Argument String email) {
+    @QueryMapping
+    public Mono<User> getByEmail(@Argument String email) {
         return userService.findByEmail(email);
     }
-    @SchemaMapping(typeName = "user", field = "id")
-    /**
-     * Retorna un usuario por su id.
-     * @param user_id Identificador del usuario
-     * @return Mono<user>
-     */
-    public Mono<User> user(@Argument String user_id) {
-        return userService.findById(user_id);
-    }
 
 
-    @MutationMapping
     /**
      * Actualiza un usuario por su id.
-     * @param user_id Identificador del usuario
-     *                user Usuario a actualizar
-     * @return Mono<user>
+     * @return Mono<User>
      *
      */
-    public Mono<User> updateUser(@Argument String user_id, @Argument User user) {
-        return userService.updateUser(user_id, user);
+    @MutationMapping
+    public Mono<User> updateUser(@Argument UserInput input) {
+        return userService.updateUser(input.toUser());
     }
 
-    @MutationMapping
     /**
      * Elimina un usuario por su id.
-     * @param user_id Identificador del usuario
+     * @param id Identificador del usuario
      * @return Mono<user>
      */
-    public Mono<User> deleteUser(@Argument String user_id) {
-        return userService.deleteUser(user_id);
+    @MutationMapping
+    public Mono<User> deleteUser(@Argument String id) {
+        return userService.deleteUser(id);
     }
 
-    @MutationMapping
     /**
      * Crea un usuario.
-     * @param user Usuario a crear
+     * @param input Usuario a crear
      * @return Mono<user>
      */
+    @MutationMapping
     public Mono<User> createUser(@Argument UserInput input) {
         System.out.println("CreateUSER: "+input);
         return userService.createUser(input.toUser());

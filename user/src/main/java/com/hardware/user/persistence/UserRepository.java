@@ -3,7 +3,6 @@
     import com.hardware.user.domain.entities.User;
     import org.springframework.data.mongodb.repository.Query;
     import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-    import reactor.core.publisher.Flux;
     import reactor.core.publisher.Mono;
 
     /**
@@ -13,28 +12,13 @@
      * @since 1.0
      * @see User
      */
-    public interface userRepository extends ReactiveMongoRepository<User, String> {
-        @Query("{ 'email' : ?0 }")
+    public interface UserRepository extends ReactiveMongoRepository<User, String> {
         /**
          * Retorna un usuario por su correo electronico.
          * @param email Correo electronico del usuario
          * @return Mono<user>
          */
+        @Query("{ 'email' : ?0 }")
         Mono<User> findByEmail(String email);
 
-        /**
-         * Retorna un usuario por su id.
-         *
-         * @param user_id Identificador del usuario
-         * @return Mono<user>
-         */
-        @Query("{ '_id' : ?0 }")
-        Flux<User> findAllById(String user_id);
-
-        /**
-         * Retorna todos los usuarios.
-         * @return Flux<user>
-         */
-        @Query("{}")
-        Flux<User> findAllUsers();
     }

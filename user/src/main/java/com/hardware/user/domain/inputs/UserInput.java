@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 public class UserInput {
     public String id;
     public String name;
-    public String lastName;
+    public String last_name;
     public String email;
     public String password;
     public String birthday;
@@ -26,9 +26,9 @@ public class UserInput {
      */
     public User toUser() {
         if (id == null) {
-            return new User(name, lastName, email, password, birthday, city_birth);
+            return new User(name, last_name, birthday, city_birth);
         }
-        return new User(id, name, lastName, email, password, birthday, city_birth);
+        return new User(id, name, last_name, birthday, city_birth);
     }
 
     /**
@@ -40,7 +40,7 @@ public class UserInput {
         return "createUserInput{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", birthday='" + birthday + '\'' +

@@ -5,7 +5,7 @@ import java.io.FileInputStream
 
 object ConfigProperties {
     private val properties = Properties()
-    private const val properties_path = "src/main/resources/config.properties"
+    private const val properties_path = "config.properties"
     init {
         val inputStream = FileInputStream(properties_path)
         properties.load(inputStream)
