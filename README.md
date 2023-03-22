@@ -1,5 +1,5 @@
 # hardware_store_back
-A web hardware store project made in springboot and graphql
+Project is about the webpage of a hardware store, the web list the products of the commerce with some atributes like name and description, the cities in which every product is available, and the brand of every product.
 
 ## Introduction
 
@@ -8,6 +8,18 @@ It has 3 microservices:
 - user
 - auth
 - tools
+
+
+### Stack
+
+- Using springboot with graphql with a mongodb database
+- Meant to have an angular client
+- Auth with JWT
+- Code in Java and Kotlin
+
+## Code structure 
+
+There are 3 microservices every one of them is separated using clean architecture with a presentation folder for controllers, a domain folder for servies and a persitence 
 
 ## How to run
 
@@ -21,7 +33,7 @@ spring.graphql.graphiql.enabled=true
 spring.graphql.graphiql.path=/graphiql
 ```
 
-Additionally, you need to add to auth microservice a file called "config.properties" in the same path as the "application.properties" file with the following content:
+Additionally, you need to add to auth microservice a file called "config.properties" in the root path in order to be accesible to every microservice file with the following content:
 
 ```properties
 #config.properties
