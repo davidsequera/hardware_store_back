@@ -19,7 +19,7 @@ It has 3 microservices:
 
 ## Code structure 
 
-There are 3 microservices every one of them is separated using clean architecture with a presentation folder for controllers, a domain folder for servies and a persitence 
+There are 3 microservices every one of them is separated using clean architecture with a presentation folder for controllers, a domain folder for servies and a persitence folder with repositories. There is also a python folder that could help with the intial insetion of registries in the database and creation of secrets for JWT generation 
 
 ## How to run
 
