@@ -2,7 +2,9 @@ package com.hardware.user.presentation;
 
 import com.hardware.user.domain.entities.User;
 import com.hardware.user.domain.inputs.UserInput;
-import com.hardware.user.domain.userService;
+import com.hardware.user.domain.UserService;
+import graphql.GraphQLContext;
+import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -11,21 +13,25 @@ import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.net.http.HttpRequest;
+
 /**
  * Controlador de la entidad user que expone los servicios GraphQL para la entidad user
  * @author Sebastian Vergara, David Sequera
  * @version 1.0
  * @since 1.0
  * @see User
- * @see userService
+ * @see UserService
  *
  */
 @Controller
-public class userController {
+public class UserController {
     @Autowired
-    private userService userService;
+    private UserService userService;
 
-    public userController(userService userService) {
+
+
+    public UserController(UserService userService) {
         this.userService = userService;
     }
     @QueryMapping
@@ -33,17 +39,23 @@ public class userController {
      * Retorna todos los usuarios.
      * @return Flux<user>
      */
-    public Flux<User> findAllUsers() {
-        return userService.findAllUsers();
+    public Flux<User> getAllUsers(DataFetchingEnvironment env) {
+        GraphQLContext context = env.getGraphQlContext();
+//        HttpRequest request = context.get(HttpRequest.class);
+        System.out.println(context.toString());
+        return userService.getAllUsers();
     }
 
     /**
      * Retorna un usuario por su id.
-     * @param user_id Identificador del usuario
+     * @param id Identificador del usuario
      * @return Mono<user>
      */
     @QueryMapping //
-    public Mono<User> getById(@Argument String id) {
+    public Mono<User> getById(@Argument String id, DataFetchingEnvironment env) {
+        GraphQLContext context = env.getGraphQlContext();
+//        HttpRequest request = context.get(HttpRequest.class);
+        System.out.println(context);
         return userService.findById(id);
     }
     /**
@@ -87,6 +99,18 @@ public class userController {
     public Mono<User> createUser(@Argument UserInput input) {
         System.out.println("CreateUSER: "+input);
         return userService.createUser(input.toUser());
+    }
+
+    static class ErrorMessage {
+        private final String message;
+
+        public ErrorMessage(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 
 }

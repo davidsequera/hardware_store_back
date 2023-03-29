@@ -3,7 +3,7 @@ package com.hardware.auth.domain
 import com.hardware.auth.domain.entities.Credential
 import com.hardware.auth.domain.entities.Token
 import com.hardware.auth.domain.entities.TokenType
-import com.hardware.auth.domain.exceptions.InvalidCredential
+import com.hardware.auth.domain.exceptions.GraphQLAuthException
 import com.hardware.auth.persistence.CredentialsRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -23,10 +23,12 @@ class AuthService {
 
 
     fun authenticate(c: Credential): Pair<Token, Token> {
-        val storedCredential = credentialsRepository.findByEmail(c.email) ?: throw InvalidCredential("Usuario no encontrado")
+        val storedCredential = credentialsRepository.findByEmail(c.email) ?: throw GraphQLAuthException(
+            "Usuario no encontrado"
+        )
 
         if (!encryptComponent.verifyPassword(c.password, storedCredential.password)) {
-            throw InvalidCredential("Email o Contrasena Invalido")
+            throw GraphQLAuthException("Email o Contrasena Invalido")
         }
 
         val accessToken = Token(value = tokenComponent.sign(storedCredential, TokenType.ACCESS), type = TokenType.ACCESS)
@@ -45,7 +47,7 @@ class AuthService {
     fun refresh(token: Token): Token {
 
         if (token.type != TokenType.REFRESH || !tokenComponent.verify(token) || !tokenComponent.current(token)) {
-            throw InvalidCredential("Invalid token")
+            throw GraphQLAuthException("Invalid token")
         }
         val claims = tokenComponent.getClaims(token)
         val email = claims["email"] as String

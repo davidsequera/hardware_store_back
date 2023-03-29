@@ -7,9 +7,9 @@ import graphql.language.SourceLocation;
 import java.util.List;
 
 
-public class InvalidCredential extends RuntimeException implements GraphQLError {
+public class GraphQLAuthException extends RuntimeException implements GraphQLError {
 
-    public  InvalidCredential(String message) {
+    public GraphQLAuthException(String message) {
        super(message);
     }
 

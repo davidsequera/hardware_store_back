@@ -3,9 +3,11 @@ package com.hardware.user.domain;
 import com.hardware.user.domain.entities.User;
 import com.hardware.user.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 
 /**
  * Esta clase representa el servicio de la entidad user. Aqui se definen los metodos que se pueden realizar con la entidad user.
@@ -16,7 +18,7 @@ import reactor.core.publisher.Mono;
  * @see UserRepository
  */
 @Service
-public class userService {
+public class UserService {
     @Autowired
     private UserRepository userRepository;
 
@@ -24,8 +26,8 @@ public class userService {
      * Retorna todos los usuarios.
      * @return Flux<User>
      */
-    public Flux<User> findAllUsers() {
-        System.out.println("findAllUsers");
+    @PreAuthorize("isAnonymous()")
+    public Flux<User> getAllUsers() {
         return userRepository.findAll();
     }
 

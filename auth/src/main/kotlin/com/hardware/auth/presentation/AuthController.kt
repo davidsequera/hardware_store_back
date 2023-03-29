@@ -16,7 +16,6 @@ class AuthController(@Autowired val authService: AuthService) {
 
     @MutationMapping
     fun authenticate(@Argument credential: Credential): Token {
-        println("CONTROLLER $credential")
         return authService.authenticate(credential).second
     }
 

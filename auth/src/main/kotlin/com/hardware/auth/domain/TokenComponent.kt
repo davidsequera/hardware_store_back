@@ -5,7 +5,6 @@ import com.hardware.auth.domain.entities.Credential
 import com.hardware.auth.domain.entities.Token
 import com.hardware.auth.domain.entities.TokenType
 import io.jsonwebtoken.Claims
-import io.jsonwebtoken.JwtParser
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys

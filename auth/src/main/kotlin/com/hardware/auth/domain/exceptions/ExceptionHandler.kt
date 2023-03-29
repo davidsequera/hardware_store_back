@@ -18,7 +18,7 @@ class GraphQLExceptionHandler : DataFetcherExceptionResolverAdapter() {
 
     override fun resolveToSingleError(e: Throwable, env: DataFetchingEnvironment): GraphQLError? {
         return when (e) {
-            is InvalidCredential -> toGraphQLError(e)
+            is GraphQLAuthException -> toGraphQLError(e)
             else -> super.resolveToSingleError(e, env)
         }
     }
