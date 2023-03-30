@@ -60,14 +60,14 @@ public class UserService {
                     if (user.getName() != null && !user.getName().isEmpty()) {
                         existingUser.setName(user.getName());
                     }
-                    if (user.getLast_name() != null && !user.getLast_name().isEmpty()) {
-                        existingUser.setLast_name(user.getLast_name());
+                    if (user.getLastName() != null && !user.getLastName().isEmpty()) {
+                        existingUser.setLastName(user.getLastName());
                     }
                     if (user.getBirthday() != null && !user.getBirthday().isEmpty()) {
                         existingUser.setBirthday(user.getBirthday());
                     }
-                    if (user.getCity_birth() != null && !user.getCity_birth().isEmpty()) {
-                        existingUser.setCity_birth(user.getCity_birth());
+                    if (user.getCityBirth() != null && !user.getCityBirth().isEmpty()) {
+                        existingUser.setCityBirth(user.getCityBirth());
                     }
                     return userRepository.save(existingUser);
                 });

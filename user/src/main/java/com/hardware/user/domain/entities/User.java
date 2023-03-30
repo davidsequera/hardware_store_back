@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "user")
+@Document(collection = "users")
 public class User {
     @Id
     private String id;
@@ -157,7 +157,7 @@ public class User {
      * Retorna la ciudad de nacimiento del usuario.
      * @return city_birth
      */
-    public String getCity_birth() {
+    public String getCityBirth() {
         return city_birth;
     }
 
@@ -165,7 +165,7 @@ public class User {
      * Asigna la ciudad de nacimiento del usuario.
      * @param city_birth Ciudad de nacimiento del usuario.
      */
-    public void setCity_birth(String city_birth) {
+    public void setCityBirth(String city_birth) {
         this.city_birth = city_birth;
     }
 
