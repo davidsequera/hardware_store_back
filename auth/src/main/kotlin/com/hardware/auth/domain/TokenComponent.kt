@@ -15,6 +15,8 @@ import java.util.*
 @Component
 class TokenComponent {
 
+    val ACCESS_EXPIRATION = 600000
+    val REFRESH_EXPIRATION = 3600000
 
     fun sign(c: Credential, type : TokenType): String? {
         val secretKey = when(type){
@@ -22,14 +24,16 @@ class TokenComponent {
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
         }
         val expiration = when(type){
-            TokenType.ACCESS -> 600000
-            TokenType.REFRESH -> 3600000
+            TokenType.ACCESS -> ACCESS_EXPIRATION
+            TokenType.REFRESH -> REFRESH_EXPIRATION
         }
         val token = Jwts
             .builder()
             .setId(UUID.randomUUID().toString())
             .setSubject(c.id)
             .claim("email", c.email)
+            .claim("type", type.toString())
+            .claim("authorities", "ROLE_USER")
             .setIssuedAt(Date(System.currentTimeMillis()))
             .setExpiration(Date(System.currentTimeMillis() + expiration))
             .signWith(
@@ -46,7 +50,8 @@ class TokenComponent {
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
         }
         try {
-            val claims = Jwts
+            //Claims
+            Jwts
                 .parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
                 .build()
@@ -73,7 +78,6 @@ class TokenComponent {
             .parseClaimsJws(token.value)
             .body
 
-         val expiration = claims.expiration
             return !claims.expiration.before(Date())
         }catch (e: Exception){
             return false
