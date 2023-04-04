@@ -27,7 +27,7 @@ public class ToolController {
     @Autowired
     private CityService cityService;
     @QueryMapping
-    public Flux<Tool> getTools(ToolPageInput input) {
+    public Flux<Tool> getTools(@Argument ToolPageInput input) {
         // Implement the logic for fetching the tools based on the input criteria (e.g. filter by city, brand, etc.)
         // and return the list of tools
         return toolService.findToolsByInput(input);

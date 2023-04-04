@@ -1,7 +1,7 @@
 
 type Query{
     getAllTools:[Tool]
-    getTools(input: toolPageInput): ToolPage
+    getTools(input: toolPageInput): [Tool]
     getToolById(id: ID!): Tool
     getBrands: [Brand]
     getBrandById(id: ID!): Brand
@@ -45,8 +45,8 @@ type Brand{
 # Inputs Schema
 
 input  toolPageInput{
-    start: Int!
-    amount: Int!
+    page: Int!
+    size: Int!
 }
 
 input createToolInput{

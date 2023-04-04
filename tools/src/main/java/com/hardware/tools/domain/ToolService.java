@@ -1,9 +1,12 @@
 package com.hardware.tools.domain;
 
 import com.hardware.tools.domain.entities.Tool;
+import com.hardware.tools.domain.entities.ToolPage;
 import com.hardware.tools.domain.entities.ToolPageInput;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -20,7 +23,8 @@ public class ToolService {
 
     public Flux<Tool> findToolsByInput(ToolPageInput toolsInput) {
         // TODO: Implement the logic for fetching the tools based on the input criteria (e.g. filter by city, brand, etc.)
-        return toolRepository.findAll();
+        Pageable pageable = PageRequest.of(toolsInput.page, toolsInput.size);
+        return toolRepository.findAllBy(pageable);
     }
 
     public Flux<Tool> findAllTools() {
@@ -28,8 +32,7 @@ public class ToolService {
     }
 
     public Mono<Tool> findToolById(String id) {
-        Mono<Tool> tool = toolRepository.findById(id);
-        return tool;
+        return toolRepository.findById(id);
     }
     public Flux<Tool> findToolsByBrand(String id) {
         return toolRepository.findToolsByBrandId(new ObjectId(id));
