@@ -15,5 +15,4 @@ public interface ToolRepository extends ReactiveMongoRepository<Tool, String> {
     Flux<Tool> findAllBy(Pageable pageable);
     Flux<Tool> findToolsByBrandId(ObjectId brandId);
 
-    Flux<Tool> findByIdAndDeleted(String id);
 }
