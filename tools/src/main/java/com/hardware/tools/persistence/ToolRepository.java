@@ -2,7 +2,6 @@ package com.hardware.tools.persistence;
 
 import com.hardware.tools.domain.entities.Tool;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

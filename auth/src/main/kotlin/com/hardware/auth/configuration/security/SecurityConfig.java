@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -58,7 +59,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     DefaultSecurityFilterChain springWebFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(c -> c.disable()) // Disable CSRF protection
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection
                 // Allow unauthenticated access to /graphiql
                 .authorizeHttpRequests(requests -> requests.requestMatchers("/graphiql").permitAll())
                 // Add the JWT authentication filter

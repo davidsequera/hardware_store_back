@@ -1,6 +1,5 @@
 package com.hardware.tools.presentation;
 
-import com.hardware.tools.domain.CityService;
 import com.hardware.tools.domain.BrandService;
 import com.hardware.tools.domain.ToolService;
 import com.hardware.tools.domain.entities.Brand;
@@ -24,7 +23,7 @@ public class BrandController {
 
     @Autowired
     private ToolService toolService;
-    
+
     /**
      * This method handles the GraphQL query for fetching all Brands.
      *

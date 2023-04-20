@@ -20,5 +20,4 @@
          */
         @Query("{ 'email' : ?0 }")
         Mono<User> findByEmail(String email);
-
     }

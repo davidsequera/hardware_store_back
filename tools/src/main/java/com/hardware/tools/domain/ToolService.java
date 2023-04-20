@@ -2,7 +2,6 @@ package com.hardware.tools.domain;
 
 import com.hardware.tools.domain.entities.Tool;
 import com.hardware.tools.domain.entities.ToolPageInput;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -75,7 +75,7 @@ class TokenComponent {
      * @return `true` if the token is verified, `false` otherwise.
      */
     fun verify(token: Token): Boolean {
-        var verified: Boolean
+        val verified: Boolean
         val secretKey = when (token.type) {
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
