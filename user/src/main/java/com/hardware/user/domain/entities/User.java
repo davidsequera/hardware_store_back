@@ -36,21 +36,15 @@ public class User {
      * @param birthday Cumpleaños del usuario.
      * @param city_birth Ciudad de nacimiento del usuario.
      */
-    public User(String id, String name, String lastName, String email, String password, String birthday, String city_birth) {
+    public User(String id, String name,String last_name, String username, String birthday, String city_birth) {
+        this(name, last_name, username, birthday, city_birth);
         this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.birthday = birthday;
-        this.city_birth = city_birth;
     }
 
-    public User(String name, String lastName, String email, String password, String birthday, String city_birth) {
+    public User(String name, String last_name, String username, String birthday, String city_birth) {
         this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+        this.username = username;
+        this.last_name = last_name;
         this.birthday = birthday;
         this.city_birth = city_birth;
     }
