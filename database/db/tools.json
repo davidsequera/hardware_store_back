@@ -1,0 +1,489 @@
+[
+    {
+      "name": "Hammer",
+      "description": "A tool used to drive nails into wood or other materials",
+      "brand": "1",
+      "price": 12.99,
+      "amount": 50
+    },
+    {
+      "name": "Screwdriver Set",
+      "description": "A set of tools used to drive screws into wood or other materials",
+      "brand": "2",
+      "price": 29.99,
+      "amount": 25
+    },
+    {
+      "name": "Circular Saw",
+      "description": "A power tool used to make straight cuts through wood or other materials",
+      "brand": "3",
+      "price": 129.99,
+      "amount": 10
+    },
+    {
+      "name": "Drill",
+      "description": "A power tool used to make holes in wood or other materials",
+      "brand": "4",
+      "price": 89.99,
+      "amount": 20
+    },
+    {
+      "name": "Wrench Set",
+      "description": "A set of tools used to tighten or loosen nuts and bolts",
+      "brand": "5",
+      "price": 39.99,
+      "amount": 15
+    },
+    {
+      "name": "Pliers",
+      "description": "A hand tool used to grip and manipulate objects",
+      "brand": "6",
+      "price": 9.99,
+      "amount": 30
+    },
+    {
+      "name": "Sledgehammer",
+      "description": "A large, heavy hammer used to break up rocks or other hard materials",
+      "brand": "8",
+      "price": 49.99,
+      "amount": 10
+    },
+    {
+      "name": "Angle Grinder",
+      "description": "A power tool used to grind or cut metal or other hard materials",
+      "brand": "9",
+      "price": 79.99,
+      "amount": 15
+    },
+    {
+      "name": "Tape Measure",
+      "description": "A tool used to measure distances",
+      "brand": "10",
+      "price": 4.99,
+      "amount": 50
+    },
+    {
+      "name": "Air Compressor",
+      "description": "A device used to,compress air and power pneumatic tools",
+      "brand": "11",
+      "price": 199.99,
+      "amount": 8
+    },
+    {
+      "name": "Hand Saw",
+      "description": "A manual tool used to cut wood or other materials",
+      "brand": "12",
+      "price": 14.99,
+      "amount": 40
+    },
+    {
+      "name": "Paint Sprayer",
+      "description": "A device used to apply paint to surfaces",
+      "brand": "13",
+      "price": 129.99,
+      "amount": 10
+    },
+    {
+      "name": "Nail Gun",
+      "description": "A power tool used to drive nails into wood or other materials quickly and efficiently",
+      "brand": "14",
+      "price": 199.99,
+      "amount": 7
+    },
+    {
+      "name": "Angle Drill",
+      "description": "A power tool used to drill holes at an angle",
+      "brand": "15",
+      "price": 119.99,
+      "amount": 12
+    },
+    {
+      "name": "Cordless Screwdriver",
+      "description": "A battery-powered tool used to drive screws into wood or other materials",
+      "brand": "2",
+      "price": 49.99,
+      "amount": 20
+    },
+    {
+      "name": "Belt Sander",
+      "description": "A power tool used to sand wood or other materials quickly and efficiently",
+      "brand": "16",
+      "price": 89.99,
+      "amount": 15
+    },
+    {
+      "name": "Jigsaw",
+      "description": "A power tool used to make curved or intricate cuts in wood or other materials",
+      "brand": "17",
+      "price": 99.99,
+      "amount": 10
+    },
+    {
+      "name": "Miter Saw",
+      "description": "A power tool used to make precise angled cuts in wood or other materials",
+      "brand": "3",
+      "price": 179.99,
+      "amount": 7
+    },
+    {
+      "name": "Socket Set",
+      "description": "A set of tools used to tighten or loosen nuts and bolts with a socket wrench",
+      "brand": "18",
+      "price": 29.99,
+      "amount": 25
+    },
+    {
+      "name": "Level",
+      "description": "A tool used to ensure that surfaces are level or plumb",
+      "brand": "10",
+      "price": 9.99,
+      "amount": 30
+    },
+    {
+      "name": "Rotary Tool",
+      "description": "A handheld power tool with a variety of interchangeable bits for sanding, grinding, and cutting",
+      "brand": "19",
+      "price": 49.99,
+      "amount": 15
+    },
+    {
+      "name": "Chainsaw",
+      "description": "A power tool used to cut down trees and branches",
+      "brand": "20",
+      "price": 299.99,
+      "amount": 5
+    },
+    {
+      "name": "Carpenter's Square",
+      "description": "A tool used for measuring and marking right angles in woodworking",
+      "brand": "21",
+      "price": 19.99,
+      "amount": 25
+    },
+    {
+      "name": "Claw Hammer",
+      "description": "A manual tool used for driving nails and removing them with its claw end",
+      "brand": "10",
+      "price": 12.99,
+      "amount": 30
+    },
+    {
+      "name": "Safety Glasses",
+      "description": "Protective eyewear used to prevent eye injuries while working with tools or other hazardous materials",
+      "brand": "22",
+      "price": 5.99,
+      "amount": 50
+    },
+    {
+      "name": "Earplugs",
+      "description": "Protective devices used to reduce noise exposure and prevent hearing damage",
+      "brand": "23",
+      "price": 2.99,
+      "amount": 100
+    },
+    {
+      "name": "Work Gloves",
+      "description": "Protective gloves used to provide hand safety and prevent injuries while working with tools or other materials",
+      "brand": "24",
+      "price": 9.99,
+      "amount": 40
+    },
+    {
+      "name": "Toolbox",
+      "description": "A container used to store and transport tools",
+      "brand": "25",
+      "price": 29.99,
+      "amount": 20
+    },
+  {
+    "name": "Safety Vest",
+    "description": "High-visibility vest used to increase visibility and safety in construction sites or other hazardous areas",
+    "brand": "26",
+    "price": 12.99,
+    "amount": 30
+  },
+  {
+    "name": "Hard Hat",
+    "description": "Protective headgear used to protect the head from falling objects or impact",
+    "brand": "27",
+    "price": 19.99,
+    "amount": 25
+  },
+  {
+    "name": "Respirator Mask",
+    "description": "Protective mask used to filter out harmful particles and fumes in the air",
+    "brand": "28",
+    "price": 7.99,
+    "amount": 50
+  },
+  {
+    "name": "Fall Protection Harness",
+    "description": "Safety harness used to protect against falls from heights",
+    "brand": "29",
+    "price": 54.99,
+    "amount": 15
+  },
+  {
+    "name": "First Aid Kit",
+    "description": "Comprehensive first aid kit with essential medical supplies for emergencies",
+    "brand": "30",
+    "price": 24.99,
+    "amount": 10
+  },
+  {
+    "name": "Fire Extinguisher",
+    "description": "Portable device used to extinguish small fires and prevent fire hazards",
+    "brand": "31",
+    "price": 39.99,
+    "amount": 5
+  },
+  {
+    "name": "Tool Belt",
+    "description": "Belt used to hold and organize tools for easy access during work",
+    "brand": "32",
+    "price": 14.99,
+    "amount": 20
+  },
+  {
+    "name": "Measuring Tape",
+    "description": "A flexible ruler used to measure distances accurately",
+    "brand": "33",
+    "price": 6.99,
+    "amount": 30
+  },
+  {
+    "name": "Nail Gun",
+    "description": "A power tool used for driving nails into wood or other materials quickly and efficiently",
+    "brand": "36",
+    "price": 129.99,
+    "amount": 8
+  },
+  {
+    "name": "Wrench Set",
+    "description": "A set of wrenches with different sizes for tightening or loosening nuts and bolts",
+    "brand": "38",
+    "price": 24.99,
+    "amount": 12
+  },
+  {
+    "name": "Drill Bit Set",
+    "description": "A set of drill bits with different sizes and types for drilling holes in various materials",
+    "brand": "39",
+    "price": 18.99,
+    "amount": 20
+  },
+  {
+    "name": "Paint Roller Kit",
+    "description": "A complete kit for painting walls, ceilings, and other surfaces with a roller",
+    "brand": "40",
+    "price": 29.99,
+    "amount": 8
+  },
+  {
+    "name": "Cordless Drill",
+    "description": "A portable drill powered by a rechargeable battery, ideal for drilling holes and driving screws",
+    "brand": "41",
+    "price": 79.99,
+    "amount": 10
+  },
+  {
+    "name": "Angle Grinder",
+    "description": "A versatile power tool used for cutting, grinding, and polishing metal, concrete, or other materials",
+    "brand": "42",
+    "price": 89.99,
+    "amount": 5
+  },
+  {
+    "name": "Plunger",
+    "description": "A tool used for unclogging drains and toilets by creating a vacuum to dislodge blockages",
+    "brand": "43",
+    "price": 6.99,
+    "amount": 10
+  },
+  {
+    "name": "Caulking Gun",
+    "description": "A tool used for applying caulk or sealant to gaps or joints in construction or home improvement projects",
+    "brand": "44",
+    "price": 9.99,
+    "amount": 15
+  },
+  {
+    "name": "Step Ladder",
+    "description": "A portable ladder with multiple steps or rungs, suitable for reaching high places",
+    "brand": "45",
+    "price": 49.99,
+    "amount": 7
+  },
+  {
+    "name": "Utility Knife",
+    "description": "A versatile cutting tool with a retractable blade, used for various cutting tasks",
+    "brand": "46",
+    "price": 5.99,
+    "amount": 20
+  },
+  {
+    "name": "Extension Cord",
+    "description": "A long electrical cord used for extending the reach of power tools or other electrical devices",
+    "brand": "47",
+    "price": 12.99,
+    "amount": 25
+  },
+  {
+    "name": "Wireless Bluetooth Earplugs",
+    "description": "Earplugs with built-in Bluetooth technology, ideal for reducing noise while listening to music or taking calls",
+    "brand": "48",
+    "price": 59.99,
+    "amount": 10
+  },
+  {
+    "name": "Tape Measure",
+    "description": "A flexible measuring tool used for measuring distances, lengths, and widths accurately",
+    "brand": "49",
+    "price": 8.99,
+    "amount": 30
+  },
+  {
+    "name": "Screwdriver Set",
+    "description": "A set of screwdrivers with various sizes and types for tightening or loosening screws",
+    "brand": "51",
+    "price": 14.99,
+    "amount": 20
+  },
+  {
+    "name": "Socket Wrench Set",
+    "description": "A set of socket wrenches with different sizes for tightening or loosening nuts and bolts",
+    "brand": "52",
+    "price": 39.99,
+    "amount": 10
+  },
+  {
+    "name": "Pliers Set",
+    "description": "A set of pliers with different types for gripping, cutting, and bending wires or other materials",
+    "brand": "53",
+    "price": 24.99,
+    "amount": 15
+  },
+  {
+    "name": "Adjustable Wrench",
+    "description": "A wrench with an adjustable jaw for tightening or loosening nuts and bolts of different sizes",
+    "brand": "54",
+    "price": 9.99,
+    "amount": 10
+  },
+  {
+    "name": "Miter Saw",
+    "description": "A power saw used for making accurate crosscuts or miter cuts in wood or other materials",
+    "brand": "55",
+    "price": 199.99,
+    "amount": 3
+  },
+  {
+    "name": "Chisel Set",
+    "description": "A set of chisels with various sizes and types for carving, shaping, or cutting wood or other materials",
+    "brand": "56",
+    "price": 29.99,
+    "amount": 5
+  },
+  {
+    "name": "Wire Brush Set",
+    "description": "A set of wire brushes with different bristle types for cleaning rust, paint, or debris from surfaces",
+    "brand": "57",
+    "price": 12.99,
+    "amount": 8
+  },
+  {
+    "name": "Safety Goggles",
+    "description": "Protective goggles with impact-resistant lenses for eye safety during DIY projects or construction work",
+    "brand": "58",
+    "price": 7.99,
+    "amount": 20
+  },
+  {
+    "name": "Safety Gloves",
+    "description": "Protective gloves with durable materials for hand safety during DIY projects or construction work",
+    "brand": "59",
+    "price": 9.99,
+    "amount": 30
+  },
+  {
+    "name": "Dust Mask",
+    "description": "A respiratory mask designed to filter out dust, particles, and airborne contaminants for breathing protection",
+    "brand": "60",
+    "price": 3.99,
+    "amount": 50
+  },
+  {
+    "name": "Angle Grinder",
+    "description": "A power tool used for cutting, grinding, and polishing various materials, such as metal or masonry",
+    "brand": "61",
+    "price": 49.99,
+    "amount": 2
+  },
+  {
+    "name": "Pipe Cutter",
+    "description": "A cutting tool used for cutting pipes made of different materials, such as copper, PVC, or steel",
+    "brand": "62",
+    "price": 24.99,
+    "amount": 5
+  },
+  {
+    "name": "Hacksaw",
+    "description": "A hand saw with a fine-toothed blade used for cutting metal, plastic, or other hard materials",
+    "brand": "63",
+    "price": 12.99,
+    "amount": 3
+  },
+  {
+    "name": "Tape Measure",
+    "description": "A measuring tool with a retractable tape used for measuring distances, lengths, or widths",
+    "brand": "64",
+    "price": 7.99,
+    "amount": 10
+  },
+  {
+    "name": "Cordless Drill",
+    "description": "A power drill that operates on rechargeable batteries, providing mobility and versatility",
+    "brand": "65",
+    "price": 79.99,
+    "amount": 3
+  },
+  {
+    "name": "Bench Vise",
+    "description": "A clamping tool mounted on a workbench used for holding and securing materials during work",
+    "brand": "66",
+    "price": 39.99,
+    "amount": 2
+  },
+  {
+    "name": "Bolt Cutter",
+    "description": "A cutting tool used for cutting through bolts, chains, wire mesh, or other heavy-duty materials",
+    "brand": "67",
+    "price": 29.99,
+    "amount": 4
+  },
+  {
+    "name": "Paint Sprayer",
+    "description": "A device used for spraying paint or other coatings onto surfaces, providing a smooth and even finish",
+    "brand": "68",
+    "price": 89.99,
+    "amount": 1
+  },
+  {
+    "name": "Caulking Gun",
+    "description": "A tool used for applying caulk or sealant to gaps or joints, providing a waterproof or airtight seal",
+    "brand": "69",
+    "price": 9.99,
+    "amount": 8
+  },
+  {
+    "name": "Claw Hammer",
+    "description": "A hammer with a claw-shaped end used for driving nails or removing nails or other fasteners",
+    "brand": "70",
+    "price": 12.99,
+    "amount": 7
+  }
+]
+  
+  
+  
+  

@@ -2,101 +2,101 @@
     {
       "name": "DeWalt",
       "description": "American worldwide brand of power tools and hand tools",
-      "founded": "1924"
+      "foundation_year": "1924"
     },
     {
       "name": "Makita",
       "description": "Japanese manufacturer of power tools",
-      "founded": "1915"
+      "foundation_year": "1915"
     },
     {
       "name": "Milwaukee",
       "description": "American company that manufactures cordless power tools",
-      "founded": "1924"
+      "foundation_year": "1924"
     },
     {
       "name": "Bosch",
       "description": "German multinational engineering and technology company",
-      "founded": "1886"
+      "foundation_year": "1886"
     },
     {
       "name": "Black & Decker",
       "description": "American manufacturer of power tools, accessories, hardware, home improvement products and technology",
-      "founded": "1910"
+      "foundation_year": "1910"
     },
     {
       "name": "Ryobi",
       "description": "Japanese manufacturer of power tools and outdoor equipment",
-      "founded": "1943"
+      "foundation_year": "1943"
     },
     {
       "name": "Craftsman",
       "description": "American manufacturer of hand tools, power tools, and lawn and garden equipment",
-      "founded": "1927"
+      "foundation_year": "1927"
     },
     {
       "name": "Husky",
       "description": "American brand of hand tools, pneumatic tools, and tool storage products",
-      "founded": "1924"
+      "foundation_year": "1924"
     },
     {
       "name": "Kobalt",
       "description": "American brand of hand and power tools, outdoor power equipment, and home improvement products",
-      "founded": "1998"
+      "foundation_year": "1998"
     },
     {
       "name": "Porter-Cable",
       "description": "American company that manufactures power tools",
-      "founded": "1906"
+      "foundation_year": "1906"
     },
     {
       "name": "Stanley",
       "description": "American manufacturer of hand tools, power tools, and related accessories",
-      "founded": "1843"
+      "foundation_year": "1843"
     },
     {
       "name": "Dremel",
       "description": "American brand of power tools known primarily for its rotary tools",
-      "founded": "1932"
+      "foundation_year": "1932"
     },
     {
       "name": "Worx",
       "description": "American brand of lawn and garden equipment and power tools",
-      "founded": "2004"
+      "foundation_year": "2004"
     },
     {
       "name": "Hitachi",
       "description": "Japanese multinational conglomerate company that manufactures power tools",
-      "founded": "1910"
+      "foundation_year": "1910"
     },
     {
       "name": "Stihl",
       "description": "German manufacturer of chainsaws and other handheld power equipment",
-      "founded": "1926"
+      "foundation_year": "1926"
     },
     {
       "name": "Ridgid",
       "description": "American brand of hand and power tools",
-      "founded": "1923"
+      "foundation_year": "1923"
     },
     {
       "name": "Irwin Tools",
       "description": "American manufacturer of hand tools and power tool accessories",
-      "founded": "1885"
+      "foundation_year": "1885"
     },
     {
       "name": "Festool",
       "description": "German manufacturer of power tools and accessories for woodworking, painting, and construction",
-      "founded": "1925"
+      "foundation_year": "1925"
     },
     {
       "name": "RotoZip",
       "description": "American brand of rotary tools and accessories",
-      "founded": "1972"
+      "foundation_year": "1972"
     },
     {
         "name": "Greenworks",
         "description": "American brand of battery-powered outdoor equipment and power",
-        "founded": "2007"
+        "foundation_year": "2007"
     }
 ]

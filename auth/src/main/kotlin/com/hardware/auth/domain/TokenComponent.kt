@@ -10,23 +10,47 @@ import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import org.springframework.stereotype.Component
 import java.util.*
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 
-
+/**
+ * A component that provides functionality to generate, verify, and extract claims from JSON Web Tokens (JWTs).
+ */
 @Component
 class TokenComponent {
 
-    val ACCESS_EXPIRATION = 600000
-    val REFRESH_EXPIRATION = 3600000
+    /**
+     * The expiration time for access tokens, in minutes.
+     */
+    val ACCESS_EXPIRATION: Long = 60
 
-    fun sign(c: Credential, type : TokenType): String? {
-        val secretKey = when(type){
+    /**
+     * The expiration time for refresh tokens, in days.
+     */
+    val REFRESH_EXPIRATION: Long = 7
+
+    /**
+     * Generates a JWT for the given credential and token type.
+     *
+     * @param c the credential to generate the token for.
+     * @param type the type of token to generate.
+     *
+     * @return the generated JWT, prepended with "Bearer ".
+     */
+    fun sign(c: Credential, type: TokenType): String? {
+        val secretKey = when (type) {
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
         }
-        val expiration = when(type){
+        val expiration: Long = when (type) {
             TokenType.ACCESS -> ACCESS_EXPIRATION
             TokenType.REFRESH -> REFRESH_EXPIRATION
         }
+        val timeUnit = when (type) {
+            TokenType.ACCESS -> ChronoUnit.MINUTES
+            TokenType.REFRESH -> ChronoUnit.DAYS
+        }
+
         val token = Jwts
             .builder()
             .setId(UUID.randomUUID().toString())
@@ -34,8 +58,8 @@ class TokenComponent {
             .claim("email", c.email)
             .claim("type", type.toString())
             .claim("authorities", "ROLE_USER")
-            .setIssuedAt(Date(System.currentTimeMillis()))
-            .setExpiration(Date(System.currentTimeMillis() + expiration))
+            .setIssuedAt(Date.from(Instant.now()))
+            .setExpiration(Date.from(Instant.now().plus(expiration, timeUnit)))
             .signWith(
                 Keys.hmacShaKeyFor(secretKey.toByteArray()),
                 SignatureAlgorithm.HS512
@@ -43,47 +67,67 @@ class TokenComponent {
         return "Bearer $token"
     }
 
+    /**
+     * Verifies the authenticity of the given token.
+     *
+     * @param token the token to verify.
+     *
+     * @return `true` if the token is verified, `false` otherwise.
+     */
     fun verify(token: Token): Boolean {
         var verified: Boolean
-        val secretKey = when(token.type){
+        val secretKey = when (token.type) {
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
         }
-        try {
-            //Claims
+        verified = try {
+            // Claims
             Jwts
                 .parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
                 .build()
                 .parseClaimsJws(token.value)
                 .body
-            verified = true
+            true
         } catch (e: Exception) {
-            verified = false
+            false
         }
         return verified
     }
 
+    /**
+     * Checks if the given token is currently valid.
+     *
+     * @param token the token to check.
+     *
+     * @return `true` if the token is currently valid, `false` otherwise.
+     */
 
     fun current(token: Token): Boolean {
         val secretKey = when(token.type){
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
         }
-        try {
-        val claims = Jwts
-            .parserBuilder()
-            .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
-            .build()
-            .parseClaimsJws(token.value)
-            .body
+        return try {
+            val claims = Jwts
+                .parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
+                .build()
+                .parseClaimsJws(token.value)
+                .body
 
-            return !claims.expiration.before(Date())
+            !claims.expiration.before(Date())
         }catch (e: Exception){
-            return false
+            false
         }
     }
-
+    /**
+     * Retrieves the claims contained in a JWT token.
+     *
+     * @param token the JWT token to get the claims from
+     *
+     * @return a Claims object containing the claims from the token
+     */
     fun getClaims(token: Token): Claims {
         val secretKey = when(token.type){
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")

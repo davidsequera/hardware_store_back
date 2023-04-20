@@ -15,6 +15,7 @@ public class UserInput {
     public String id;
     public String name;
     public String last_name;
+    public String username;
     public String email;
     public String password;
     public String birthday;
@@ -26,9 +27,9 @@ public class UserInput {
      */
     public User toUser() {
         if (id == null) {
-            return new User(name, last_name, birthday, city_birth);
+            return new User(name,username, last_name, birthday, city_birth);
         }
-        return new User(id, name, last_name, birthday, city_birth);
+        return new User(id, name, last_name, username, birthday, city_birth);
     }
 
     /**

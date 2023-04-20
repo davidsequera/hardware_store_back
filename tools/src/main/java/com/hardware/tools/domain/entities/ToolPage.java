@@ -8,6 +8,7 @@ public class ToolPage {
 
     public Mono<Long> length;
     public Flux<Tool> tools;
+    public Mono<Long> total;
 
     public ToolPage(Mono<Long> length, Flux<Tool> tools) {
         this.length = length;

@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.net.http.HttpRequest;
 
 /**
  * Controlador de la entidad user que expone los servicios GraphQL para la entidad user
@@ -35,9 +34,10 @@ public class UserController {
         this.userService = userService;
     }
     @QueryMapping
+    @PreAuthorize("isAuthenticated")
     /**
      * Retorna todos los usuarios.
-     * @return Flux<user>
+     * @return Flux<User>
      */
     public Flux<User> getAllUsers(DataFetchingEnvironment env) {
         GraphQLContext context = env.getGraphQlContext();
@@ -49,9 +49,11 @@ public class UserController {
     /**
      * Retorna un usuario por su id.
      * @param id Identificador del usuario
-     * @return Mono<user>
+     * @param env DataFetchingEnvironment
+     * @return Mono<User>
      */
-    @QueryMapping //
+    @QueryMapping
+    @PreAuthorize("isAuthenticated")
     public Mono<User> getById(@Argument String id, DataFetchingEnvironment env) {
         GraphQLContext context = env.getGraphQlContext();
 //        HttpRequest request = context.get(HttpRequest.class);
@@ -62,9 +64,10 @@ public class UserController {
      * Retorna un usuario por su correo electronico.
      *
      * @param email Correo electronico del usuario
-     * @return Mono<user>
+     * @return Mono<User>
      */
     @QueryMapping
+    @PreAuthorize("isAuthenticated")
     public Mono<User> getByEmail(@Argument String email) {
         return userService.findByEmail(email);
     }
@@ -76,6 +79,7 @@ public class UserController {
      *
      */
     @MutationMapping
+    @PreAuthorize("isAuthenticated")
     public Mono<User> updateUser(@Argument UserInput input) {
         return userService.updateUser(input.toUser());
     }
@@ -83,9 +87,10 @@ public class UserController {
     /**
      * Elimina un usuario por su id.
      * @param id Identificador del usuario
-     * @return Mono<user>
+     * @return Mono<User>
      */
     @MutationMapping
+    @PreAuthorize("isAuthenticated")
     public Mono<User> deleteUser(@Argument String id) {
         return userService.deleteUser(id);
     }
@@ -93,24 +98,13 @@ public class UserController {
     /**
      * Crea un usuario.
      * @param input Usuario a crear
-     * @return Mono<user>
+     * @return Mono<User>
      */
     @MutationMapping
+    @PreAuthorize("isAuthenticated")
     public Mono<User> createUser(@Argument UserInput input) {
         System.out.println("CreateUSER: "+input);
         return userService.createUser(input.toUser());
-    }
-
-    static class ErrorMessage {
-        private final String message;
-
-        public ErrorMessage(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
     }
 
 }

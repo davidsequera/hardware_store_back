@@ -1,3 +1,6 @@
+/**
+ * This service handles authentication-related operations.
+ */
 package com.hardware.auth.domain
 
 import com.hardware.auth.domain.entities.Credential
@@ -10,10 +13,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class AuthService {
-
     @Autowired
     lateinit var credentialsRepository: CredentialsRepository
-
 
     @Autowired
     lateinit var encryptComponent: EncryptComponent
@@ -21,37 +22,65 @@ class AuthService {
     @Autowired
     lateinit var tokenComponent: TokenComponent
 
-
+    /**
+     * Authenticates the user with the given credentials and returns a pair of access and refresh tokens.
+     *
+     * @param c The user's credentials to authenticate.
+     * @return A pair of access and refresh tokens.
+     * @throws GraphQLAuthException If the user is not found or the credentials are incorrect.
+     */
     fun authenticate(c: Credential): Pair<Token, Token> {
-        val storedCredential = credentialsRepository.findByEmail(c.email) ?: throw GraphQLAuthException(
-            "Usuario no encontrado"
-        )
+        val storedCredential = credentialsRepository.findByEmail(c.email)
+            ?: throw GraphQLAuthException("User not found")
 
         if (!encryptComponent.verifyPassword(c.password, storedCredential.password)) {
-            throw GraphQLAuthException("Email o Contrasena Invalido")
+            throw GraphQLAuthException("Incorrect email or password.")
         }
 
-        val accessToken = Token(value = tokenComponent.sign(storedCredential, TokenType.ACCESS), type = TokenType.ACCESS)
-        val refreshToken = Token(value = tokenComponent.sign(storedCredential, TokenType.REFRESH), type = TokenType.REFRESH)
+        val accessToken =
+            Token(value = tokenComponent.sign(storedCredential, TokenType.ACCESS), type = TokenType.ACCESS)
+        val refreshToken =
+            Token(value = tokenComponent.sign(storedCredential, TokenType.REFRESH), type = TokenType.REFRESH)
 
         return Pair(accessToken, refreshToken)
     }
 
-
-    fun create(c: Credential): Token? {
+    /**
+     * Creates a new user with the given credentials and returns a pair of access and refresh tokens.
+     *
+     * @param c The user's credentials to create.
+     * @return A pair of access and refresh tokens.
+     * @throws GraphQLAuthException If the user already exists.
+     */
+    fun create(c: Credential): Pair<Token, Token> {
         val credential = c.copy()
         credential.password = encryptComponent.hashPassword(c.password)
-        credentialsRepository.save(credential)
-        return this.authenticate(c).second
-    }
-    fun refresh(token: Token): Token {
 
+        try {
+            credentialsRepository.save(credential)
+        } catch (e: Exception) {
+            throw GraphQLAuthException("User already exists")
+        }
+
+        return this.authenticate(c)
+    }
+
+    /**
+     * Refreshes an access token with a new one.
+     *
+     * @param token The refresh token to use for authentication.
+     * @return The new access token.
+     * @throws GraphQLAuthException If the token is invalid or has expired.
+     */
+    fun refresh(token: Token): Token {
         if (token.type != TokenType.REFRESH || !tokenComponent.verify(token) || !tokenComponent.current(token)) {
             throw GraphQLAuthException("Invalid token")
         }
+
         val claims = tokenComponent.getClaims(token)
         val email = claims["email"] as String
         val credential = credentialsRepository.findByEmail(email)
+
         return Token(value = credential?.let { tokenComponent.sign(it, TokenType.ACCESS) }, type = TokenType.ACCESS)
     }
 }

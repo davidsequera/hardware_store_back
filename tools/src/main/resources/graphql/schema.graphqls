@@ -1,7 +1,11 @@
 
 type Query{
+#    Development
     getAllTools:[Tool]
+    countTools: Int
+#    Production
     getTools(input: toolPageInput): [Tool]
+    getToolsByName(input: toolPageInput, search :String ): [Tool]
     getToolById(id: ID!): Tool
     getBrands: [Brand]
     getBrandById(id: ID!): Brand
@@ -40,6 +44,7 @@ type Brand{
     id: ID!
     name: String!
     tools: [Tool]
+    foundation_year: Int
 }
 
 # Inputs Schema
@@ -88,10 +93,10 @@ input updateCityInput{
     name: String!
 }
 
-
 # Pagination Schema
 type ToolPage{
     length: Int
     tools: [Tool]
+    total: Int
 }
 

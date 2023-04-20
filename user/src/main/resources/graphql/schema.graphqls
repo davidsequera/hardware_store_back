@@ -10,8 +10,10 @@ type User {
     id: String
     name: String
     last_name: String
+    username: String
     birthday: String
     city_birth: String
+    credentials: [String]
 }
 
 type Mutation{
@@ -22,16 +24,10 @@ type Mutation{
 
 # Inputs Schema
 
-input  userInput{
-    name: String!
-    last_name: String!
-    birthday: String!
-    city_birth: String!
-}
-
 input createUserInput{
     name: String!
     last_name: String!
+    username: String!
     birthday: String!
     city_birth: String!
 }
@@ -39,6 +35,7 @@ input createUserInput{
 input updateUserInput{
     id: ID!
     name: String
+    username: String
     last_name: String
     birthday: String
     city_birth: String

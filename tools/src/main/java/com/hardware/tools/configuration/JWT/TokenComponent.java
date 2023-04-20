@@ -1,18 +1,20 @@
-package com.hardware.user.configuration.JWT;
+package com.hardware.tools.configuration.JWT;
 
 
-import com.hardware.user.configuration.ConfigProperties;
+import com.hardware.tools.configuration.ConfigProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import java.io.IOException;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-import java.util.*;
+
+import java.io.IOException;
+import java.util.Date;
 
 @Component
 public class TokenComponent {
-    
+
+
     public boolean verify(String token) {
         boolean verified;
         try {

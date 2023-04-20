@@ -13,10 +13,9 @@ import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
+/**
+ * This is a Spring Boot controller for handling GraphQL queries related to Brands.
+ */
 @Controller
 public class BrandController {
 
@@ -25,23 +24,36 @@ public class BrandController {
 
     @Autowired
     private ToolService toolService;
-    @Autowired
-    private CityService cityService;
+    
+    /**
+     * This method handles the GraphQL query for fetching all Brands.
+     *
+     * @return A Flux of Brand objects representing all Brands in the system.
+     */
     @QueryMapping
     public Flux<Brand> getBrands() {
-        // Implement the logic for fetching the tools based on the input criteria (e.g. filter by city, brand, etc.)
-        // and return the list of tools
         return brandService.findAllBrands();
     }
+
+    /**
+     * This method handles the GraphQL query for fetching a Brand by ID.
+     *
+     * @param id The ID of the Brand to fetch.
+     * @return A Mono of Brand object representing the Brand with the given ID.
+     */
     @QueryMapping
     public Mono<Brand> getBrandById(@Argument String id) {
-        // Find the tool with the specified ID in the repository and return it
         return brandService.findById(id);
     }
+
+    /**
+     * This method handles the GraphQL schema mapping for fetching all Tools for a given Brand.
+     *
+     * @param brand The Brand for which to fetch Tools.
+     * @return A Flux of Tool objects representing all Tools for the given Brand.
+     */
     @SchemaMapping
     public Flux<Tool> tools(Brand brand) {
-        // Implement the logic for fetching the tools based on the input criteria (e.g. filter by city, brand, etc.)
-        // and return the list of tools
         return toolService.findToolsByBrand(brand.getId());
     }
 }

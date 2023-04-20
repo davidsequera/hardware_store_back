@@ -3,7 +3,6 @@ package com.hardware.user.domain;
 import com.hardware.user.domain.entities.User;
 import com.hardware.user.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,7 +25,6 @@ public class UserService {
      * Retorna todos los usuarios.
      * @return Flux<User>
      */
-    @PreAuthorize("isAnonymous()")
     public Flux<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -60,14 +58,20 @@ public class UserService {
                     if (user.getName() != null && !user.getName().isEmpty()) {
                         existingUser.setName(user.getName());
                     }
-                    if (user.getLastName() != null && !user.getLastName().isEmpty()) {
-                        existingUser.setLastName(user.getLastName());
+                    if (user.getLast_name() != null && !user.getLast_name().isEmpty()) {
+                        existingUser.setLast_name(user.getLast_name());
                     }
-                    if (user.getBirthday() != null && !user.getBirthday().isEmpty()) {
+                    if (user.getUsername() != null && !user.getUsername().isEmpty()) {
+                        existingUser.setLast_name(user.getUsername());
+                    }
+                    if (user.getBirthday() != null) {
                         existingUser.setBirthday(user.getBirthday());
                     }
-                    if (user.getCityBirth() != null && !user.getCityBirth().isEmpty()) {
-                        existingUser.setCityBirth(user.getCityBirth());
+                    if (user.getCity_birth() != null && !user.getCity_birth().isEmpty()) {
+                        existingUser.setCity_birth(user.getCity_birth());
+                    }
+                    if(user.getCredentials() != null && !user.getCredentials().isEmpty()){
+                        existingUser.setCredentials(user.getCredentials());
                     }
                     return userRepository.save(existingUser);
                 });
@@ -83,7 +87,7 @@ public class UserService {
     public Mono<User> deleteUser(String id) {
         return userRepository.findById(id)
                 .flatMap(existingUser -> {
-                    existingUser.setActive(false);
+                    existingUser.setStatus("inactive");
                     return userRepository.save(existingUser);
                 });
     }

@@ -1,0 +1,35 @@
+[
+  {
+    "name":"Juan",
+    "username": "juan",
+    "last_name":"Perez",
+    "birthday":"2022-04-19T12:00:00.000+00:00",
+    "city_birth":"Bogota,Colombia",
+    "status":"active"
+  },
+  {
+    "name":"Jhon",
+    "username": "jhon",
+    "last_name":"Ramirez",
+    "birthday":"2022-04-19T12:00:00.000+00:00",
+    "city_birth":"Jerusalem,Cucuta",
+    "status":"active"
+  },
+  {
+    "name":"David",
+    "username": "david",
+    "last_name":"Sequera",
+    "birthday":"2003-04-05T12:00:00.000+00:00",
+    "city_birth":"Jerusalem,Cucuta",
+    "status":"active"
+  },
+  {
+    "name":"Sebastian",
+    "username": "sebas",
+    "last_name":"Vergara",
+    "birthday":"2003-04-05T12:00:00.000+00:00",
+    "city_birth":"Jerusalem,Cucuta",
+    "status":"active"
+  }
+
+]
