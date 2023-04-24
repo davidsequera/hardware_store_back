@@ -27,15 +27,24 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**") // Map to all endpoints
+                .allowedOriginPatterns("*") // Allow all origins, you can specify specific origins here
+                .allowedMethods("GET", "POST", "PUT", "DELETE") // Allowed HTTP methods
+                .allowedHeaders("*") // Allow all headers, you can specify specific headers here
+                .allowCredentials(true); // Allow credentials (e.g. cookies) to be sent
+    }
     @Autowired
     private TokenComponent tokenComponent;
     @Bean

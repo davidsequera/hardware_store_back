@@ -5,15 +5,13 @@ import com.hardware.tools.configuration.ConfigProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import java.io.IOException;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.util.Date;
+import java.util.*;
 
 @Component
 public class TokenComponent {
-
 
     public boolean verify(String token) {
         boolean verified;

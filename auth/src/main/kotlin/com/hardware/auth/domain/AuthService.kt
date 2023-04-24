@@ -73,8 +73,14 @@ class AuthService {
      * @throws GraphQLAuthException If the token is invalid or has expired.
      */
     fun refresh(token: Token): Token {
-        if (token.type != TokenType.REFRESH || !tokenComponent.verify(token) || !tokenComponent.current(token)) {
+        if (token.type != TokenType.REFRESH){
+            throw GraphQLAuthException("Invalid token must enter a refresh token")
+        }
+        if(!tokenComponent.verify(token)){
             throw GraphQLAuthException("Invalid token")
+        }
+        if(!tokenComponent.current(token)) {
+            throw GraphQLAuthException("Expired token")
         }
 
         val claims = tokenComponent.getClaims(token)

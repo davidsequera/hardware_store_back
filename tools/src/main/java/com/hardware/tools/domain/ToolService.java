@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hardware.tools.persistence.ToolRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 /**
  * This class contains the business logic for interacting with the ToolRepository and provides
@@ -131,7 +132,7 @@ public class ToolService {
         // Find the tool by ID and save it in a Mono
         Mono<Tool> tool =  toolRepository.findById(id);
         // Delete the tool from the database using the repository
-        tool.doAfterTerminate(() -> toolRepository.deleteById(id).block());
+        toolRepository.deleteById(id).subscribeOn(Schedulers.boundedElastic()).subscribe();
         // Return the Mono of the deleted tool
         return tool;
     }

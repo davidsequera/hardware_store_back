@@ -66,6 +66,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     }
     private Claims validateToken(HttpServletRequest request) throws IOException, ExpiredJwtException{
         String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
+
         tokenComponent.verify(jwtToken);
         tokenComponent.current(jwtToken);
         return tokenComponent.getClaims(jwtToken);
