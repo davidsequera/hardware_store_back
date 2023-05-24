@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-mongo_uri = "mongodb://localhost:27017/"
+mongo_uri = "mongodb://localhost:27017"
 client = MongoClient(mongo_uri)  # assuming MongoDB is running on localhost
 db = client.hardwarestore
 
@@ -77,7 +77,7 @@ db.create_collection("tools", validator={
                 "bsonType": "string",
                 "description": "must be a string and is required",
             },
-            "brand": {
+            "brand_id": {
                 "bsonType": "objectId",
                 "description": "must be a objectId and is required",
             },

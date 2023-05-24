@@ -4,20 +4,23 @@ import com.hardware.auth.configuration.ConfigProperties
 import com.hardware.auth.domain.entities.Credential
 import com.hardware.auth.domain.entities.Token
 import com.hardware.auth.domain.entities.TokenType
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
+import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
+import io.jsonwebtoken.security.SignatureException
 import org.springframework.stereotype.Component
-import java.util.*
+import java.io.IOException
+import java.lang.IllegalArgumentException
 import java.time.Instant
 import java.time.temporal.ChronoUnit
+import java.util.*
 
 /**
  * A component that provides functionality to generate, verify, and extract claims from JSON Web Tokens (JWTs).
  */
 @Component
 class TokenComponent {
+
+
 
     /**
      * The expiration time for access tokens, in minutes.
@@ -29,6 +32,7 @@ class TokenComponent {
      */
     val REFRESH_EXPIRATION: Long = 7
 
+
     /**
      * Generates a JWT for the given credential and token type.
      *
@@ -38,7 +42,7 @@ class TokenComponent {
      * @return the generated JWT, prepended with "Bearer ".
      */
     fun sign(c: Credential, type: TokenType): String? {
-        val secretKey = when (type) {
+        val secretKey: String = when (type) {
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
         }
@@ -68,67 +72,22 @@ class TokenComponent {
     }
 
     /**
-     * Verifies the authenticity of the given token.
-     *
-     * @param token the token to verify.
-     *
-     * @return `true` if the token is verified, `false` otherwise.
-     */
-    fun verify(token: Token): Boolean {
-        val verified: Boolean
-        val secretKey = when (token.type) {
-            TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
-            TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
-        }
-        verified = try {
-            // Claims
-            Jwts
-                .parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
-                .build()
-                .parseClaimsJws(token.value)
-                .body
-            true
-        } catch (e: Exception) {
-            false
-        }
-        return verified
-    }
-
-    /**
-     * Checks if the given token is currently valid.
-     *
-     * @param token the token to check.
-     *
-     * @return `true` if the token is currently valid, `false` otherwise.
-     */
-
-    fun current(token: Token): Boolean {
-        val secretKey = when(token.type){
-            TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
-            TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
-        }
-        return try {
-            val claims = Jwts
-                .parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
-                .build()
-                .parseClaimsJws(token.value)
-                .body
-
-            !claims.expiration.before(Date())
-        }catch (e: Exception){
-            false
-        }
-    }
-    /**
-     * Retrieves the claims contained in a JWT token.
+     * Verifies the authenticity of the given token and Retrieves the claims contained in a JWT token.
      *
      * @param token the JWT token to get the claims from
      *
      * @return a Claims object containing the claims from the token
      */
-    fun getClaims(token: Token): Claims {
+    @Throws(
+        ExpiredJwtException::class,
+        UnsupportedJwtException::class,
+        MalformedJwtException::class,
+        SignatureException::class,
+        IllegalArgumentException::class,
+        IOException::class
+    )
+    fun verify(token: Token): Claims {
+        val tokenValue: String = token.value?.replace("Bearer ", "") ?: ""
         val secretKey = when(token.type){
             TokenType.ACCESS -> ConfigProperties.getProperty("JWT_SECRET")
             TokenType.REFRESH -> ConfigProperties.getProperty("JWT_SECRET_REFRESH")
@@ -137,8 +96,10 @@ class TokenComponent {
             .parserBuilder()
             .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
             .build()
-            .parseClaimsJws(token.value)
+            .parseClaimsJws(tokenValue)
             .body
     }
-
 }
+
+
+

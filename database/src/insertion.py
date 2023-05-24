@@ -32,7 +32,7 @@ def addJsonToDB(path: str, collection, type: str = '') -> None:
 
 # Add random cities and brands to tools
 def addCityAndBrandToTool(tool: dict) -> dict:
-    tool["brand"] = random.choice(brand_ids)
+    tool["brand_id"] = random.choice(brand_ids)
     num_cities = random.randint(1, len(city_ids))
     tool["cities"] = random.sample(city_ids, num_cities)
 

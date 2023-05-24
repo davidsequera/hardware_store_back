@@ -34,15 +34,13 @@ public class UserController {
         this.userService = userService;
     }
     @QueryMapping
-    @PreAuthorize("isAuthenticated")
+    // TODO: cambiar a isAuthenticated
     /**
      * Retorna todos los usuarios.
      * @return Flux<User>
      */
-    public Flux<User> getAllUsers(DataFetchingEnvironment env) {
-        GraphQLContext context = env.getGraphQlContext();
+    public Flux<User> getAllUsers() {
 //        HttpRequest request = context.get(HttpRequest.class);
-        System.out.println(context.toString());
         return userService.getAllUsers();
     }
 
@@ -54,10 +52,8 @@ public class UserController {
      */
     @QueryMapping
     @PreAuthorize("isAuthenticated")
-    public Mono<User> getById(@Argument String id, DataFetchingEnvironment env) {
-        GraphQLContext context = env.getGraphQlContext();
+    public Mono<User> getById(@Argument String id) {
 //        HttpRequest request = context.get(HttpRequest.class);
-        System.out.println(context);
         return userService.findById(id);
     }
     /**

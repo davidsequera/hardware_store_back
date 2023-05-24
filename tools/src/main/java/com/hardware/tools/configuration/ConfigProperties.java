@@ -9,7 +9,9 @@ public class ConfigProperties {
     private static ConfigProperties instance;
     private static final Properties properties = new Properties();
 
-    private static final String properties_path = "config.properties";
+//    private static final String properties_path = "config.properties";
+    private static final String properties_path = "D:\\Projects\\Mini\\WEB\\hardware_store_back\\config.properties";
+
     private ConfigProperties() throws IOException {
         FileInputStream inputStream = new FileInputStream(ConfigProperties.properties_path);
         properties.load(inputStream);

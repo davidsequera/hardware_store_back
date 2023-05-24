@@ -3,12 +3,12 @@ package com.hardware.tools.presentation;
 import com.hardware.tools.domain.BrandService;
 import com.hardware.tools.domain.CityService;
 import com.hardware.tools.domain.ToolService;
-import com.hardware.tools.domain.entities.Brand;
-import com.hardware.tools.domain.entities.City;
-import com.hardware.tools.domain.entities.Tool;
-import com.hardware.tools.domain.entities.ToolPageInput;
+import com.hardware.tools.domain.entities.*;
+import com.hardware.tools.domain.inputs.FilterInput;
 import com.hardware.tools.domain.inputs.ToolInput;
+import com.hardware.tools.domain.inputs.ToolPageInput;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.ArgumentValue;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -38,6 +38,19 @@ public class ToolController {
     @QueryMapping
     public Flux<Tool> getTools(@Argument ToolPageInput input) {
         return toolService.findToolsByInput(input);
+    }
+
+
+    /**
+     * Query method to retrieve a list of tools based on a given input, such as a page number and size.
+     * Also filters by brand and city.
+     * @param input the ToolPageInput containing the page number and size
+     * @return a Flux of Tool objects
+     */
+    @QueryMapping
+    public Mono<ToolPage> getFilteredTools(@Argument ToolPageInput input, ArgumentValue<FilterInput> filter ) {
+        var toolPage = new ToolPage(input, filter.value());
+        return Mono.just(toolPage);
     }
 
     /**
@@ -75,6 +88,8 @@ public class ToolController {
      * @return a Mono of the Tool object
      */
     @QueryMapping
+//  TODO: Uncomment the following line to enable authentication for this method.
+    @PreAuthorize("isAuthenticated")
     public Mono<Tool> getToolById(@Argument String id) {
         return toolService.findToolById(id);
     }
@@ -96,7 +111,7 @@ public class ToolController {
      */
     @SchemaMapping
     public Mono<Brand> brand(Tool tool) {
-        return brandService.findById(tool.getBrandId());
+        return brandService.findById(tool.getBrand_id());
     }
 
     /**
@@ -133,4 +148,6 @@ public class ToolController {
     public Mono<Tool> deleteTool(@Argument String id) {
         return toolService.deleteTool(id);
     }
+
+
 }

@@ -2,35 +2,24 @@ package com.hardware.tools.configuration.JWT;
 
 
 import com.hardware.tools.configuration.ConfigProperties;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
+
 import java.io.IOException;
+
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
 public class TokenComponent {
-
-    public boolean verify(String token) {
-        boolean verified;
-        try {
-            ConfigProperties configProperties = ConfigProperties.getInstance();
-            String secretKey =configProperties.getProperty("JWT_SECRET");
-            Jwts.parserBuilder()
-                    .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-            verified = true;
-        } catch (Exception e) {
-            verified = false;
-        }
-        return verified;
-    }
-
-    public boolean current(String token) {
+    /*
+    * This function checks if the token is valid
+    *
+    * @param token el token que se va a validar
+    * @return Claims si el token no esta
+    * */
+    public Claims verify(String token) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException, IOException {
         try {
             ConfigProperties configProperties = ConfigProperties.getInstance();
             String secretKey =configProperties.getProperty("JWT_SECRET");
@@ -39,20 +28,12 @@ public class TokenComponent {
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
-            Date expiration = claims.getExpiration();
-            return !expiration.before(new Date());
-        } catch (Exception e) {
-            return false;
+            return claims;
+        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
+            throw e;
+        }catch (IOException e){
+            System.out.println("[validate] Error opening config file " + e.getMessage());
+            throw e;
         }
-    }
-
-    public Claims getClaims(String token) throws IOException, ExpiredJwtException {
-        ConfigProperties configProperties = ConfigProperties.getInstance();
-        String secretKey =configProperties.getProperty("JWT_SECRET");
-        return Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
     }
 }

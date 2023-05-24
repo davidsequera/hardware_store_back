@@ -31,7 +31,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-
         try {
 
             validateAuthHeader(request);
@@ -41,6 +40,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException | NullPointerException e) {
             System.out.println("Error en el filtro " + e.getMessage());
         }
+
         chain.doFilter(request, response);
     }
 
@@ -67,8 +67,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     private Claims validateToken(HttpServletRequest request) throws IOException, ExpiredJwtException{
         String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
 
-        tokenComponent.verify(jwtToken);
-        tokenComponent.current(jwtToken);
-        return tokenComponent.getClaims(jwtToken);
+        return tokenComponent.verify(jwtToken);
     }
 }

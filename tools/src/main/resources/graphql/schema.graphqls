@@ -1,3 +1,8 @@
+enum SortDirection{
+    ASC
+    DESC
+}
+
 
 type Query{
 #    Development
@@ -5,6 +10,7 @@ type Query{
     countTools: Int
 #    Production
     getTools(input: toolPageInput): [Tool]
+    getFilteredTools(input: toolPageInput!, filter : filterInput): ToolPage
     getToolsByName(input: toolPageInput, search :String ): [Tool]
     getToolById(id: ID!): Tool
     getBrands: [Brand]
@@ -52,6 +58,8 @@ type Brand{
 input  toolPageInput{
     page: Int!
     size: Int!
+    sort_name: String
+    sort_direction: SortDirection
 }
 
 input createToolInput{
@@ -71,6 +79,11 @@ input updateToolInput{
     amount: Int
     brandId: ID
     cities: [ID]
+}
+
+input filterInput{
+    tool_field: String!
+    tool_value: String!
 }
 
 input createBrandInput{
@@ -95,8 +108,10 @@ input updateCityInput{
 
 # Pagination Schema
 type ToolPage{
-    length: Int
     tools: [Tool]
-    total: Int
+    length: Int
+    page: Int
+    total_pages: Int
+    total_tools: Int
 }
 

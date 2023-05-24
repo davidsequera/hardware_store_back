@@ -53,6 +53,6 @@ public class BrandController {
      */
     @SchemaMapping
     public Flux<Tool> tools(Brand brand) {
-        return toolService.findToolsByBrand(brand.getId());
+        return toolService.findToolsByBrandId(brand.getId());
     }
 }

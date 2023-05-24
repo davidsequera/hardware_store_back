@@ -6,6 +6,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.22'
     id 'org.jetbrains.kotlin.plugin.spring' version '1.7.22'
     id 'org.jetbrains.dokka' version "1.8.10"
+    id 'jacoco'
 }
 
 group = 'com.hardware'
@@ -40,6 +41,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.graphql:spring-graphql-test'
+    testImplementation 'org.junit.platform:junit-platform-suite-api:1.10.0-M1'
+    testImplementation 'org.junit.platform:junit-platform-suite-engine:1.10.0-M1'
 
 }
 sourceSets{
@@ -62,3 +65,5 @@ tasks.withType(KotlinCompile) {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+

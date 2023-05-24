@@ -3,23 +3,23 @@ package com.hardware.tools.configuration;
 import com.hardware.tools.configuration.JWT.JWTAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.DefaultSecurityFilterChain;
-import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
+import org.springframework.web.reactive.config.CorsRegistry;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true)
-public class SecurityConfig implements WebMvcConfigurer {
+@EnableWebFluxSecurity
+@EnableReactiveMethodSecurity
+public class SecurityConfig implements WebFluxConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -30,27 +30,23 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .allowCredentials(true); // Allow credentials (e.g. cookies) to be sent
     }
 
-//    private final AuthenticationProvider authenticationProvider;
-//
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) {
-//        auth.authenticationProvider(authenticationProvider);
-//    }
-
+    @Bean
+    public JWTAuthFilter jwtAuthFilter() {
+        return new JWTAuthFilter();
+    }
 
     @Bean
-    DefaultSecurityFilterChain springWebFilterChain(HttpSecurity http) throws Exception {
-        return  http
-                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection
-                // Allow unauthenticated access to /graphiql
-                .authorizeHttpRequests(requests -> requests.requestMatchers("/graphiql").permitAll())
-                // Add the JWT authentication filter
-                .addFilterAfter(new JWTAuthFilter(), RequestHeaderAuthenticationFilter.class)
-                // Require authentication for /graphql
-                .authorizeHttpRequests(requests -> requests.requestMatchers("/graphql").permitAll())
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // Use stateless sessions
-                .httpBasic(withDefaults()) // Use basic authentication
+    SecurityWebFilterChain webfluxSecurityFilterChain(ServerHttpSecurity http) {
+        return http
+                .csrf().disable()
+                .authorizeExchange()
+                .pathMatchers("/graphiql").permitAll()
+                .pathMatchers("/graphql").permitAll()
+                .and()
+                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
+                .addFilterAfter(jwtAuthFilter(), SecurityWebFiltersOrder.HTTP_BASIC)
+                .httpBasic(withDefaults())
                 .build();
     }
+
 }

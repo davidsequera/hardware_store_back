@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.3'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'jacoco'
 }
 
 group = 'com.hardware'
@@ -26,14 +27,30 @@ dependencies{
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     implementation 'org.springframework.boot:spring-boot-starter-graphql'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.graphql:spring-graphql-test'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.junit.platform:junit-platform-suite-api:1.10.0-M1'
+    testImplementation 'org.junit.platform:junit-platform-suite-engine:1.10.0-M1'
 }
 
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/hardware/user/configuration/JWT/JWTAuthFilter.class",
+                    "com/hardware/user/domain/entities/**",
+                    "com/hardware/user/domain/inputs/**",
+            ])
+        }))
+    }
+}
 tasks.named('test') {
     useJUnitPlatform()
 }

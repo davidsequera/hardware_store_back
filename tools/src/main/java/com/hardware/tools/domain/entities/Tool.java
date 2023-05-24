@@ -7,39 +7,41 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.graphql.data.method.annotation.Arguments;
 
 import java.util.ArrayList;
 import java.util.List;
 @NoArgsConstructor
 @Document(collection = "tools")
+@Getter @Setter
 public class Tool {
     @Id
-    @Getter @Setter
     private String id;
-    @Getter @Setter private String name;
-    @Getter @Setter private String description;
-    @Field(value ="brand" ,targetType = FieldType.OBJECT_ID)
-    @Getter @Setter private String brandId;
-    @Getter @Setter private double price;
-    @Getter @Setter private int amount;
+    private String name;
+    private String description;
     @Field(targetType = FieldType.OBJECT_ID)
-    @Getter @Setter private List<String> cities;
+    private String brand_id;
+    private double price;
+    private int amount;
+    @Field(targetType = FieldType.OBJECT_ID)
+    private List<String> cities;
 
     // Constructors
-    public Tool(String id, String name, String description, String brandId, double price, int amount, List<String>  cities) {
+    public Tool(String id, String name, String description, String brand_id, double price, int amount, List<String>  cities) {
         this.id = id;
         this.name = name;
         this.description = description;
-//        TODO: Fix update tool
-        this.brandId = brandId;
+        this.brand_id = brand_id;
         this.price = price;
         this.amount = amount;
         this.cities = cities != null? cities : new ArrayList<>();
     }
-    public Tool(String name, String description, String brandId, double price, int amount, List<String>  cities) {
+
+
+    public Tool(String name, String description, String brand_id, double price, int amount, List<String>  cities) {
         this.name = name;
         this.description = description;
-        this.brandId = brandId;
+        this.brand_id = brand_id;
         this.price = price;
         this.amount = amount;
         this.cities = cities != null? cities : new ArrayList<>();
@@ -53,7 +55,7 @@ public class Tool {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", brandId='" + brandId + '\'' +
+                ", brand_id='" + brand_id + '\'' +
                 ", price=" + price +
                 ", amount=" + amount +
                 ", cities='" + cities + '\'' +

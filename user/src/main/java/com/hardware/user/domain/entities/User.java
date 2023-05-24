@@ -16,17 +16,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "users")
+@Getter @Setter
 public class User {
     @Id
-    @Getter @Setter private String id;
-    @Getter @Setter private String name;
-    @Getter @Setter private String last_name;
-    @Getter @Setter private String username;
-    @Getter @Setter private String birthday;
-    @Getter @Setter private String city_birth;
-    @Getter @Setter private String status ;
+    private String id;
+    private String name;
+    private String last_name;
+    private String username;
+    private String birthday;
+    private String city_birth;
+    private String status ;
     @Field(targetType = FieldType.OBJECT_ID)
-    @Getter @Setter private List<String> credentials;
+    private List<String> credentials;
 
     /**
      * Constructor de la clase user.

@@ -8,19 +8,18 @@ import com.hardware.auth.domain.entities.Token
 import com.hardware.auth.domain.entities.TokenType
 import com.hardware.auth.domain.exceptions.GraphQLAuthException
 import com.hardware.auth.persistence.CredentialsRepository
+import io.jsonwebtoken.ExpiredJwtException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class AuthService {
-    @Autowired
-    lateinit var credentialsRepository: CredentialsRepository
+class AuthService(
+    @Autowired val credentialsRepository: CredentialsRepository,
+    @Autowired val encryptComponent: EncryptComponent,
+    @Autowired val tokenComponent: TokenComponent
+) {
 
-    @Autowired
-    lateinit var encryptComponent: EncryptComponent
 
-    @Autowired
-    lateinit var tokenComponent: TokenComponent
 
     /**
      * Authenticates the user with the given credentials and returns a pair of access and refresh tokens.
@@ -76,17 +75,17 @@ class AuthService {
         if (token.type != TokenType.REFRESH){
             throw GraphQLAuthException("Invalid token must enter a refresh token")
         }
-        if(!tokenComponent.verify(token)){
+        try {
+            val claims = tokenComponent.verify(token)
+            val email = claims["email"] as String
+            val credential = credentialsRepository.findByEmail(email)
+            return Token(value = credential?.let { tokenComponent.sign(it, TokenType.ACCESS) }, type = TokenType.ACCESS)
+        }catch (e: ExpiredJwtException){
+            throw GraphQLAuthException("Token has expired")
+        }
+        catch (e: Exception){
             throw GraphQLAuthException("Invalid token")
         }
-        if(!tokenComponent.current(token)) {
-            throw GraphQLAuthException("Expired token")
-        }
 
-        val claims = tokenComponent.getClaims(token)
-        val email = claims["email"] as String
-        val credential = credentialsRepository.findByEmail(email)
-
-        return Token(value = credential?.let { tokenComponent.sign(it, TokenType.ACCESS) }, type = TokenType.ACCESS)
     }
 }

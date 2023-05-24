@@ -11,13 +11,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @NoArgsConstructor
 @Document(collection = "brands")
+@Getter @Setter
 public class Brand {
     // Fields
     @Id
-    @Getter @Setter private String id; // The unique identifier of the brand.
-    @Getter @Setter private String name; // The name of the brand.
-    @Getter @Setter private String description; // A short description of the brand.
-    @Getter @Setter private String foundation_year; // The year the brand was founded.
+    private String id; // The unique identifier of the brand.
+    private String name; // The name of the brand.
+    private String description; // A short description of the brand.
+    private String foundation_year; // The year the brand was founded.
 
     // Constructors
     /**

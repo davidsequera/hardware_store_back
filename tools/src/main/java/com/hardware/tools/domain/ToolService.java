@@ -1,15 +1,19 @@
 package com.hardware.tools.domain;
 
+import com.hardware.tools.domain.exceptions.GraphQLToolsException;
+import com.hardware.tools.domain.inputs.FilterInput;
 import com.hardware.tools.domain.entities.Tool;
-import com.hardware.tools.domain.entities.ToolPageInput;
+import com.hardware.tools.domain.inputs.ToolPageInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.hardware.tools.persistence.ToolRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+
 
 /**
  * This class contains the business logic for interacting with the ToolRepository and provides
@@ -28,12 +32,43 @@ public class ToolService {
      * @return a Flux of Tool objects based on the input criteria
      */
     public Flux<Tool> findToolsByInput(ToolPageInput toolsInput) {
-        // TODO: Implement the logic for fetching the tools based on the input criteria (e.g. filter by city, brand, etc.)
         Pageable pageable = PageRequest.of(toolsInput.page, toolsInput.size);
         return toolRepository.findAllBy(pageable);
     }
+    public Flux<Tool> findFilteredToolsByInput(ToolPageInput input, FilterInput filter) {
+        Pageable pageable =PageRequest.of(input.page, input.size);
+        pageable = PageRequest.of(input.page, input.size, Sort.Direction.fromString(input.sort_direction), input.sort_name);
+        if(input.sort_name != null && input.sort_direction != null) {
+        }
+        System.out.println(input);
+        System.out.println(filter);
+
+        // Sorting?
+//        if(input.sort_name != null &&   Arrays.stream(Tool.class.getDeclaredFields()).map(Field::getName).noneMatch(input.sort_name::equals)){
+//            throw new GraphQLToolsException("Invalid sort field: " + input.sort_name);
+//        }
+//
+//        if(Arrays.stream(Tool.class.getDeclaredFields()).map(Field::getName).noneMatch(filter.tool_field::equals)){
+//            throw new GraphQLToolsException("Invalid filter field: " + filter.tool_field);
+//        }
+//
+//        if(filter.tool_value == null) {
+//            return toolRepository.findAllBy(pageable);
+//        }
+
+        return toolRepository.findByFilter(filter.tool_field, filter.tool_value, pageable);
+    }
+
+
+    public Mono<Long> countToolsByFilter(ToolPageInput input, FilterInput filter) {
+        Pageable pageable = PageRequest.of(input.page, input.size, Sort.Direction.fromString(input.sort_direction), input.sort_name);
+        return toolRepository.findByFilter(filter.tool_field, filter.tool_value, pageable).count();
+    }
+
+
 
     /**
+     *
      * Returns a Flux of Tool objects that match the provided search string.
      *
      * @param search the search string to match against the tool names
@@ -68,8 +103,8 @@ public class ToolService {
      * @param id the id of the brand to fetch tools for
      * @return a Flux of Tool objects that belong to the brand with the provided id
      */
-    public Flux<Tool> findToolsByBrand(String id) {
-        return toolRepository.findToolsByBrandId(id);
+    public Flux<Tool> findToolsByBrandId(String id) {
+        return toolRepository.findToolsByBrand_id(id);
     }
 
     /**
@@ -108,8 +143,8 @@ public class ToolService {
                     if (tool.getDescription() != null && !tool.getDescription().isEmpty()) {
                         existingTool.setDescription(tool.getDescription());
                     }
-                    if (tool.getBrandId() != null ) {
-                        existingTool.setBrandId(tool.getBrandId());
+                    if (tool.getBrand_id() != null ) {
+                        existingTool.setBrand_id(tool.getBrand_id());
                     }
                     if (tool.getPrice() != 0 ) {
                         existingTool.setPrice(tool.getPrice());
