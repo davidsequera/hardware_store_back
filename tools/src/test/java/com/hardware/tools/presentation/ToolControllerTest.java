@@ -54,14 +54,7 @@ class ToolControllerTest {
         Assertions.assertEquals(2, tools.count().block());
     }
 
-    @Test
-    void testGetFilteredTools() {
-        when(toolService.findToolsByInput(any())).thenReturn(Flux.just(new Tool(), new Tool()));
 
-        Mono<ToolPage> toolPage = toolController.getFilteredTools(new ToolPageInput(0,10,"name","ASC"), ArgumentValue.ofNullable(new FilterInput("name", "value")));
-
-        Assertions.assertNotNull(toolPage);
-    }
 
     @Test
     void testCountTools() {

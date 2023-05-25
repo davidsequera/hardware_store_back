@@ -41,17 +41,6 @@ public class ToolController {
     }
 
 
-    /**
-     * Query method to retrieve a list of tools based on a given input, such as a page number and size.
-     * Also filters by brand and city.
-     * @param input the ToolPageInput containing the page number and size
-     * @return a Flux of Tool objects
-     */
-    @QueryMapping
-    public Mono<ToolPage> getFilteredTools(@Argument ToolPageInput input, ArgumentValue<FilterInput> filter ) {
-        var toolPage = new ToolPage(input, filter.value());
-        return Mono.just(toolPage);
-    }
 
     /**
      * Query method to retrieve the total count of tools.

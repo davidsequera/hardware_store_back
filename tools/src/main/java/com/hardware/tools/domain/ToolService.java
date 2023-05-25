@@ -61,8 +61,7 @@ public class ToolService {
 
 
     public Mono<Long> countToolsByFilter(ToolPageInput input, FilterInput filter) {
-        Pageable pageable = PageRequest.of(input.page, input.size, Sort.Direction.fromString(input.sort_direction), input.sort_name);
-        return toolRepository.findByFilter(filter.tool_field, filter.tool_value, pageable).count();
+        return toolRepository.findByQuery(filter.tool_field, filter.tool_value).count();
     }
 
 
@@ -75,7 +74,7 @@ public class ToolService {
      * @return a Flux of Tool objects that match the provided search string
      */
     public Flux<Tool> findToolsByName(String search) {
-        return toolRepository.findByQuery(search);
+        return toolRepository.findByQuery("name",search);
     }
 
     /**

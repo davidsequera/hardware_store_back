@@ -35,11 +35,8 @@ class AuthService(
         if (!encryptComponent.verifyPassword(c.password, storedCredential.password)) {
             throw GraphQLAuthException("Incorrect email or password.")
         }
-
-        val accessToken =
-            Token(value = tokenComponent.sign(storedCredential, TokenType.ACCESS), type = TokenType.ACCESS)
-        val refreshToken =
-            Token(value = tokenComponent.sign(storedCredential, TokenType.REFRESH), type = TokenType.REFRESH)
+        val accessToken = createToken(storedCredential, TokenType.ACCESS)
+        val refreshToken = createToken(storedCredential, TokenType.REFRESH)
 
         return Pair(accessToken, refreshToken)
     }
@@ -78,14 +75,19 @@ class AuthService(
         try {
             val claims = tokenComponent.verify(token)
             val email = claims["email"] as String
-            val credential = credentialsRepository.findByEmail(email)
-            return Token(value = credential?.let { tokenComponent.sign(it, TokenType.ACCESS) }, type = TokenType.ACCESS)
+            val credential = credentialsRepository.findByEmail(email) ?: throw GraphQLAuthException("User not found")
+            return createToken(credential, TokenType.ACCESS)
         }catch (e: ExpiredJwtException){
             throw GraphQLAuthException("Token has expired")
         }
         catch (e: Exception){
             throw GraphQLAuthException("Invalid token")
         }
+    }
 
+    private fun createToken(credential: Credential, type: TokenType): Token{
+        val tokenString = tokenComponent.sign(credential, type)
+        val claims = tokenComponent.verify(Token(value = tokenString, type = type))
+        return Token(value = tokenComponent.sign(credential, type), type = type, expiration = claims.expiration.time)
     }
 }

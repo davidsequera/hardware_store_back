@@ -8,4 +8,5 @@ package com.hardware.auth.domain.entities
 data class Token(
     val type: TokenType,
     var value: String?,
+    val expiration: Long? = null
 )

@@ -28,8 +28,8 @@ public interface ToolRepository extends ReactiveMongoRepository<Tool, String> {
      * @param expression The regular expression to match against the Tool name.
      * @return A Flux of Tool objects whose name matches the given regular expression.
      */
-    @Query("{'name': {$regex: ?0 , $options: 'i'}})")
-    Flux<Tool> findByQuery(String expression);
+    @Query("{ ?0 : {$regex: ?1 , $options: 'i'}})")
+    Flux<Tool> findByQuery(String field, String expression);
 
     // TODO: Injection is posible so we need to sanitize the input
     @Query("{ ?0: {$regex: ?1 , $options: 'i'}})")

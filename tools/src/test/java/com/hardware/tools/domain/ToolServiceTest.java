@@ -94,7 +94,7 @@ public class ToolServiceTest {
         String search = "Tool";
         Tool tool1 = new Tool("1", "Hammer", "A heavy-duty hammer", "123456", 19.99, 10, Arrays.asList("New York", "London"));
         Tool tool2 = new Tool("2", "Circular Saw", "A Circular Saw", "23456", 9.99, 20, Arrays.asList("New York", "London"));
-        when(toolRepository.findByQuery(search)).thenReturn(Flux.just(tool1, tool2));
+        when(toolRepository.findByQuery("name",search)).thenReturn(Flux.just(tool1, tool2));
 
         // Act
         Flux<Tool> result = toolService.findToolsByName(search);

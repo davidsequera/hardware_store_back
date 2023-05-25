@@ -1,30 +1,38 @@
-type Query{
-    accessToken(tokenString: String!): Token
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
 }
 
-type Mutation{
-    authenticate(credential: Credential!):  TokenPair
+type Mutation {
+    authenticate(credential: Credential!): TokenPair
     createAccount(credential: Credential!): TokenPair
 }
 
-enum TokenType{
-    ACCESS
-    REFRESH
-    ID
+type Query {
+    accessToken(tokenString: String!): Token
 }
 
-type Token{
+type Token {
     type: TokenType!
     value: String!
+    expiration: Float!
 }
 
-input Credential{
-    id: String
-    email: String!
-    password: String!
-}
-
-type TokenPair{
+type TokenPair {
     accessToken: Token!
     refreshToken: Token!
+}
+
+enum TokenType {
+    ACCESS
+    ID
+    REFRESH
+}
+
+input Credential {
+    email: String!
+    id: String
+    password: String!
 }

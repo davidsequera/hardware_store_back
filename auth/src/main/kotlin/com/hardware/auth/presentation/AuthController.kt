@@ -28,8 +28,7 @@ class AuthController(@Autowired val authService: AuthService) {
     @MutationMapping
     fun authenticate(@Argument credential: Credential): TokenPair {
         val pair: Pair<Token, Token> = authService.authenticate(credential)
-        val tokenPair = TokenPair(pair.first, pair.second)
-        return tokenPair
+        return TokenPair(pair.first, pair.second)
     }
 
     /**
@@ -41,8 +40,7 @@ class AuthController(@Autowired val authService: AuthService) {
     @MutationMapping
     fun createAccount(@Argument credential: Credential): TokenPair {
         val pair: Pair<Token, Token> = authService.create(credential)
-        val tokenPair = TokenPair(pair.first, pair.second)
-        return tokenPair
+        return TokenPair(pair.first, pair.second)
     }
 
     /**
