@@ -30,16 +30,6 @@ public class ToolController {
     @Autowired
     private CityService cityService;
 
-    /**
-     * Query method to retrieve a list of tools based on a given input, such as a page number and size.
-     * @param input the ToolPageInput containing the page number and size
-     * @return a Flux of Tool objects
-     */
-    @QueryMapping
-    public Flux<Tool> getTools(@Argument ToolPageInput input) {
-        return toolService.findToolsByInput(input);
-    }
-
 
 
     /**
@@ -51,16 +41,6 @@ public class ToolController {
         return toolService.countTools();
     }
 
-    /**
-     * Query method to retrieve a list of tools by name, based on a given input and search term.
-     * @param input the ToolPageInput containing the page number and size
-     * @param search the search term for the tool name
-     * @return a Flux of Tool objects
-     */
-    @QueryMapping
-    public Flux<Tool> getToolsByName(@Argument ToolPageInput input, @Argument String search) {
-        return toolService.findToolsByName(search);
-    }
 
     /**
      * Query method to retrieve all tools.

@@ -2,15 +2,18 @@ package com.hardware.tools.domain.inputs;
 
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class FilterInput {
-    public String tool_field;
-    public String tool_value;
+    public String field;
+    public List<String> values;
+
     @Override
     public String toString() {
-        return "Filter{" +
-                "tool_field='" + tool_field + '\'' +
-                ", tool_value='" + tool_value + '\'' +
+        return "FilterInput{" +
+                "field='" + field + '\'' +
+                ", values=" + values +
                 '}';
     }
 }

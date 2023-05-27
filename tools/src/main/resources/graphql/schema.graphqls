@@ -8,11 +8,12 @@ type Query{
 #    Development
     getAllTools:[Tool]
     countTools: Int
+    getToolById(id: ID!): Tool
 #    Production
     getTools(input: toolPageInput): [Tool]
-    getFilteredTools(input: toolPageInput!, filter : filterInput): ToolPage
+    getToolsByFilter(input: toolPageInput!, filters : [filterInput]): ToolPage
     getToolsByName(input: toolPageInput, search :String ): [Tool]
-    getToolById(id: ID!): Tool
+    # Brand
     getBrands: [Brand]
     getBrandById(id: ID!): Brand
     getCities: [City]
@@ -82,8 +83,8 @@ input updateToolInput{
 }
 
 input filterInput{
-    tool_field: String!
-    tool_value: String!
+    field: String!
+    values: [String!]!
 }
 
 input createBrandInput{
@@ -111,7 +112,7 @@ type ToolPage{
     tools: [Tool]
     length: Int
     page: Int
-    total_pages: Int
-    total_tools: Int
+    pages: Int
+    total: Int
 }
 

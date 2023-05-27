@@ -1,13 +1,7 @@
 package com.hardware.tools.domain;
 
-import com.hardware.tools.domain.exceptions.GraphQLToolsException;
-import com.hardware.tools.domain.inputs.FilterInput;
 import com.hardware.tools.domain.entities.Tool;
-import com.hardware.tools.domain.inputs.ToolPageInput;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.hardware.tools.persistence.ToolRepository;
 import reactor.core.publisher.Flux;
@@ -25,57 +19,7 @@ public class ToolService {
     @Autowired
     private ToolRepository toolRepository;
 
-    /**
-     * Returns a Flux of Tool objects based on the input criteria provided in the ToolPageInput object.
-     *
-     * @param toolsInput the input criteria for fetching the tools
-     * @return a Flux of Tool objects based on the input criteria
-     */
-    public Flux<Tool> findToolsByInput(ToolPageInput toolsInput) {
-        Pageable pageable = PageRequest.of(toolsInput.page, toolsInput.size);
-        return toolRepository.findAllBy(pageable);
-    }
-    public Flux<Tool> findFilteredToolsByInput(ToolPageInput input, FilterInput filter) {
-        Pageable pageable =PageRequest.of(input.page, input.size);
-        pageable = PageRequest.of(input.page, input.size, Sort.Direction.fromString(input.sort_direction), input.sort_name);
-        if(input.sort_name != null && input.sort_direction != null) {
-        }
-        System.out.println(input);
-        System.out.println(filter);
 
-        // Sorting?
-//        if(input.sort_name != null &&   Arrays.stream(Tool.class.getDeclaredFields()).map(Field::getName).noneMatch(input.sort_name::equals)){
-//            throw new GraphQLToolsException("Invalid sort field: " + input.sort_name);
-//        }
-//
-//        if(Arrays.stream(Tool.class.getDeclaredFields()).map(Field::getName).noneMatch(filter.tool_field::equals)){
-//            throw new GraphQLToolsException("Invalid filter field: " + filter.tool_field);
-//        }
-//
-//        if(filter.tool_value == null) {
-//            return toolRepository.findAllBy(pageable);
-//        }
-
-        return toolRepository.findByFilter(filter.tool_field, filter.tool_value, pageable);
-    }
-
-
-    public Mono<Long> countToolsByFilter(ToolPageInput input, FilterInput filter) {
-        return toolRepository.findByQuery(filter.tool_field, filter.tool_value).count();
-    }
-
-
-
-    /**
-     *
-     * Returns a Flux of Tool objects that match the provided search string.
-     *
-     * @param search the search string to match against the tool names
-     * @return a Flux of Tool objects that match the provided search string
-     */
-    public Flux<Tool> findToolsByName(String search) {
-        return toolRepository.findByQuery("name",search);
-    }
 
     /**
      * Returns a Flux of all Tool objects in the repository.

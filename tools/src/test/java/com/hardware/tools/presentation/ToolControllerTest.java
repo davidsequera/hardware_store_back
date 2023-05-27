@@ -23,6 +23,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 class ToolControllerTest {
@@ -44,15 +45,7 @@ class ToolControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testGetTools() {
-        when(toolService.findToolsByInput(any())).thenReturn(Flux.just(new Tool(), new Tool()));
 
-        Flux<Tool> tools = toolController.getTools(new ToolPageInput(0,10,"name", "ASC"));
-
-        Assertions.assertNotNull(tools);
-        Assertions.assertEquals(2, tools.count().block());
-    }
 
 
 
@@ -66,15 +59,7 @@ class ToolControllerTest {
         Assertions.assertEquals(10L, count.block());
     }
 
-    @Test
-    void testGetToolsByName() {
-        when(toolService.findToolsByName(any())).thenReturn(Flux.just(new Tool(), new Tool()));
 
-        Flux<Tool> tools = toolController.getToolsByName(new ToolPageInput(0,10,"name", "ASC"), "search term");
-
-        Assertions.assertNotNull(tools);
-        Assertions.assertEquals(2, tools.count().block());
-    }
 
     @Test
     void testGetAllTools() {

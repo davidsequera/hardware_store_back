@@ -8,21 +8,24 @@ import lombok.Setter;
 
 import java.util.List;
 @NoArgsConstructor
+@Getter @Setter
 public class ToolPage {
 
     public List<Tool> tools;
 
-    public Long length;
     public Long page;
-    public Long total_pages;
-    public Long total_tools;
+    public Long length;
+    public Long pages;
+    public Long total;
 
-    private @Setter @Getter ToolPageInput input;
-    private @Setter @Getter FilterInput filter;
+    private ToolPageInput input;
+    private List<FilterInput> filters;
 
-    public ToolPage(ToolPageInput input, FilterInput filter) {
+    private String query;
+
+    public ToolPage(ToolPageInput input, List<FilterInput> filters) {
         this.input = input;
-        this.filter = filter;
+        this.filters = filters;
     }
 
     @Override
@@ -31,10 +34,11 @@ public class ToolPage {
                 "tools=" + tools +
                 ", length=" + length +
                 ", page=" + page +
-                ", total_pages=" + total_pages +
-                ", total_tools=" + total_tools +
+                ", pages=" + pages +
+                ", total=" + total +
                 ", input=" + input +
-                ", filter=" + filter +
+                ", filters=" + filters +
+                ", query='" + query + '\'' +
                 '}';
     }
 }
